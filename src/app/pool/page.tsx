@@ -43,7 +43,7 @@ export default function Pool() {
           </div>
         </div>
         <div className="mt-8 sm:mt-12">
-          <h2 className="text-xl md:text-2xl mb-6 font-medium">Principal pools according to TVL</h2>
+          <h2 className="text-xl md:text-2xl mb-6 font-medium">Top pools according to TVL</h2>
           <div className="overflow-x-auto items-center justify-center flex">
             <PoolsTable />
           </div>
