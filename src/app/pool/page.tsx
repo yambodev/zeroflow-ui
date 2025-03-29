@@ -1,6 +1,6 @@
 import { PoolsTable } from '@/components/PoolsTable'
 import { Button } from '@/components/ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+// import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { IoIosAdd } from 'react-icons/io'
 import { FaSwimmingPool } from 'react-icons/fa'
 
