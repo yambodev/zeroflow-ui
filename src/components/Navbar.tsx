@@ -11,7 +11,9 @@ export function Navbar() {
   return (
     <>
       <header className="absolute top-0 left-0 p-4 flex space-x-4">
-        <h2 className="text-xl font-semibold text-white">ZeroFlow</h2>
+        <Link href="/" legacyBehavior passHref>
+          <h2 className="text-xl font-semibold text-white cursor-pointer hover:underline">ZeroFlow</h2>
+        </Link>
         <div className="flex justify-center w-full">
           <NavigationMenu className="gap-3 list-none">
             <NavigationMenuItem>
