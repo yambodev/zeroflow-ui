@@ -12,11 +12,12 @@ export default function Pool() {
           <div className="w-full lg:w-auto">
             <h1 className="text-2xl md:text-3xl font-semibold mb-6">Your Pools</h1>
             <div className="flex flex-grow mb-6">
-              <Button className="rounded-l-xl rounded-r-none border-r-0 gap-2 dark:bg-white dark:hover:bg-gray-200 focus:ring-0 cursor-pointer">
+              <Button className="rounded-x-xl border-r-0 gap-2 dark:bg-white dark:hover:bg-gray-200 focus:ring-0 cursor-pointer">
                 <IoIosAdd className="text-xl" />
-                New
+                Create New Pool (V1)
               </Button>
-              <Select>
+              {/* We will enable when we have more pool variations */}
+              {/* <Select>
                 <SelectTrigger
                   className="rounded-r-xl rounded-l-none border-l-gray-400 text-black cursor-pointer 
                   dark:bg-white 
@@ -29,14 +30,14 @@ export default function Pool() {
                   <SelectItem value="sell">New pool v3</SelectItem>
                   <SelectItem value="swap">New pool v2</SelectItem>
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
             <div className="border border-gray-600 flex items-center rounded-lg p-4 gap-4 w-full max-w-2xl">
               <div className="bg-violet-800 rounded-xl p-2 flex-shrink-0">
                 <FaSwimmingPool className="text-violet-400 text-2xl sm:text-3xl" />
               </div>
               <div className="flex flex-col">
-                <h2 className="text-white font-bold text-base sm:text-lg md:text-xl mb-1">Welcome to your positions</h2>
+                <h2 className="text-white font-bold text-base sm:text-lg md:text-xl mb-1">Your Positions</h2>
                 <p className="text-white text-sm sm:text-base">Connect your wallet to view your current positions.</p>
               </div>
             </div>
