@@ -138,3 +138,17 @@
     @apply py-4 sm:py-6 md:py-8 lg:py-10;
   }
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black min-h-screen m-0 p-0;
+  }
+  
+  html {
+    @apply bg-black;
+  }
+}

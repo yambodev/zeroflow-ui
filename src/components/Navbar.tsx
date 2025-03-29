@@ -17,13 +17,18 @@ export function Navbar() {
         <div className="flex justify-center w-full">
           <NavigationMenu className="gap-3 list-none">
             <NavigationMenuItem>
+              <Link href="/about" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>Trade</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/pool" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Pool</NavigationMenuLink>
+              <Link href="/pools" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Pools</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
           </NavigationMenu>
