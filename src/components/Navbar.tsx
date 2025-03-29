@@ -15,7 +15,7 @@ export function Navbar() {
         <div className="flex justify-center w-full">
           <NavigationMenu className="gap-3 list-none">
             <NavigationMenuItem>
-              <Link href="/trade" legacyBehavior passHref>
+              <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>Trade</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
