@@ -6,41 +6,78 @@ import {
   navigationMenuTriggerStyle,
 } from './ui/navigation-menu'
 import { Button } from './ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
+import { cn } from '@/lib/utils'
 
 export function Navbar() {
   return (
     <>
       <header className="absolute top-0 left-0 p-4 flex space-x-4">
         <Link href="/" legacyBehavior passHref>
-          <h2 className="text-xl font-semibold text-white cursor-pointer hover:underline">ZeroFlow</h2>
+          <h2 className="text-xl mt-0.5 font-semibold text-white cursor-pointer hover:underline">ZeroFlow</h2>
         </Link>
         <div className="flex justify-center w-full">
           <NavigationMenu className="gap-3 list-none">
             <NavigationMenuItem>
               <Link href="/about" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    'bg-transparent hover:bg-gray-800 hover:text-purple-400 text-white border-0',
+                  )}
+                >
+                  About
+                </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Trade</NavigationMenuLink>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    'bg-transparent hover:bg-gray-800 hover:text-purple-400 text-white border-0',
+                  )}
+                >
+                  Trade
+                </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/pools" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>Pools</NavigationMenuLink>
+                <NavigationMenuLink
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    'bg-transparent hover:bg-gray-800 hover:text-purple-400 text-white border-0',
+                  )}
+                >
+                  Pools
+                </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
           </NavigationMenu>
         </div>
       </header>
-      <Button
-        variant="secondary"
-        className="absolute top-0 right-0 m-4 text-white cursor-pointer rounded-xl bg-violet-800
-                    px-3 py-1 text-[10px] md:px-4 md:py-2 md:text-base"
-      >
-        Connect Wallet
-      </Button>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            variant="secondary"
+            className="absolute top-0 right-0 m-4 text-white cursor-pointer rounded-xl bg-violet-800
+                      px-3 py-1 text-[10px] md:px-4 md:py-2 md:text-base"
+          >
+            Connect Wallet
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="bg-black border-gray-800 sm:max-w-[425px]">
+          <DialogHeader className="relative">
+            <DialogTitle className="text-white text-center">Connect Wallet</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col items-center justify-center p-4">
+            <Button variant="outline" className="w-full cursor-pointer text-black border-gray-700 hover:bg-gray-800">
+              WalletConnect
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }
