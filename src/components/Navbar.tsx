@@ -68,18 +68,6 @@ export function Navbar() {
               </DropdownMenu>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    'bg-transparent hover:bg-gray-800 hover:text-purple-400 text-white border-0',
-                  )}
-                >
-                  Trade
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
               <Link href="/pools" legacyBehavior passHref>
                 <NavigationMenuLink
                   className={cn(
