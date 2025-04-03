@@ -1,4 +1,5 @@
-import { TradeTabs } from '@/components/TradeTabs'
+import { SendBox } from '@/components/TradeComponents/SendBox'
+import { TradeTabs } from '@/components/TradeComponents/TradeTabs'
 
 export default function Send() {
   return (
@@ -6,7 +7,7 @@ export default function Send() {
       <div className="flex-1 flex flex-col items-center pt-20 pb-8 px-4 md:pt-24">
         <div className="w-full max-w-md flex flex-col items-center space-y-6">
           <TradeTabs />
-          {/*SendBox */}
+          <SendBox />
         </div>
       </div>
     </div>

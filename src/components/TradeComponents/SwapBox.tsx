@@ -4,17 +4,13 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ArrowDown } from 'lucide-react'
 
-export function LimitBox() {
+export function SwapBox() {
   const [sellValue, setSellValue] = useState('')
   const [buyValue, setBuyValue] = useState('')
   const [sellCurrency, setSellCurrency] = useState('USDC')
   const [buyCurrency, setBuyCurrency] = useState('ETH')
-  const [selectedDuration, setSelectedDuration] = useState('1 semana')
 
-  // Market price simulation
-  const [marketPrice, setMarketPrice] = useState(0.000556891)
-
-  // Swap coins function
+  // Function to swap coins
   const swapCurrencies = () => {
     setSellCurrency(buyCurrency)
     setBuyCurrency(sellCurrency)
@@ -23,29 +19,8 @@ export function LimitBox() {
   }
 
   return (
-    <div className="bg-black p-6 rounded-lg shadow-lg max-w-md mx-auto text-white">
-      {/* Reference price*/}
-      <div className="bg-gray-900 p-4 rounded-lg mb-4">
-        <p className="text-sm text-gray-400">
-          When 1 <span className="text-blue-400">{sellCurrency}</span> costs
-        </p>
-        <h2 className="text-3xl font-semibold">{marketPrice.toFixed(9)}</h2>
-        <p className="text-sm text-gray-400">ETH</p>
-
-        {/*settings button*/}
-        <div className="flex space-x-2 mt-3">
-          <Button variant="secondary" className="bg-gray-800 px-4 py-1 rounded-lg">
-            Market
-          </Button>
-          {['+1%', '+5%', '+10%'].map((percentage) => (
-            <Button key={percentage} variant="secondary" className="bg-gray-800 px-3 py-1 rounded-lg">
-              {percentage}
-            </Button>
-          ))}
-        </div>
-      </div>
-
-      {/* Sell Section*/}
+    <div className="bg-gray-800 text-gray-400 p-6 rounded-lg space-y-6 w-full max-w-md text-center">
+      {/* Section "sell" */}
       <div className="bg-gray-900 p-4 rounded-lg mb-4">
         <p className="text-sm text-gray-400">Sell</p>
         <input
@@ -69,14 +44,18 @@ export function LimitBox() {
         </div>
       </div>
 
-      {/* Swap Button*/}
+      {/* Swap button */}
       <div className="flex justify-center mb-4">
-        <Button variant="secondary" className="bg-gray-800 p-2 rounded-full" onClick={swapCurrencies}>
+        <Button
+          variant="secondary"
+          className="bg-gray-800 hover:bg-gray-600 cursor-pointer p-2 rounded-full"
+          onClick={swapCurrencies}
+        >
           <ArrowDown size={20} />
         </Button>
       </div>
 
-      {/*Buy Section */}
+      {/* Section de "buy" */}
       <div className="bg-gray-900 p-4 rounded-lg mb-4">
         <p className="text-sm text-gray-400">Buy</p>
         <input
@@ -100,25 +79,10 @@ export function LimitBox() {
         </div>
       </div>
 
-      {/*Veciation Section*/}
-      <div className="bg-gray-900 p-4 rounded-lg mb-4">
-        <p className="text-sm text-gray-400">Veciation</p>
-        <div className="flex space-x-2 mt-2">
-          {['1 día', '1 semana', '1 mes', '1 año'].map((duration) => (
-            <Button
-              key={duration}
-              variant="secondary"
-              className={`px-3 py-1 rounded-lg ${selectedDuration === duration ? 'bg-gray-700' : 'bg-gray-800'}`}
-              onClick={() => setSelectedDuration(duration)}
-            >
-              {duration}
-            </Button>
-          ))}
-        </div>
-      </div>
-
-      {/*Conect wallet button*/}
-      <Button className="bg-purple-700 w-full py-3 text-lg rounded-lg">Conect Wallet</Button>
+      {/* Connect wallet button */}
+      <Button className="bg-pink-600/40 hover:bg-pink-500/50 w-full py-3 text-lg text-pink-600 rounded-lg cursor-pointer">
+        Conect Wallet
+      </Button>
     </div>
   )
 }

@@ -1,5 +1,5 @@
-import { SwapBox } from '@/components/SwapBox'
-import { TradeTabs } from '@/components/TradeTabs'
+import { SwapBox } from '@/components/TradeComponents/SwapBox'
+import { TradeTabs } from '@/components/TradeComponents/TradeTabs'
 
 export default function Swap() {
   return (

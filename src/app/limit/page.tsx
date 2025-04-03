@@ -1,5 +1,5 @@
-import { LimitBox } from '@/components/LimitBox'
-import { TradeTabs } from '@/components/TradeTabs'
+import { LimitBox } from '@/components/TradeComponents/LimitBox'
+import { TradeTabs } from '@/components/TradeComponents/TradeTabs'
 
 export default function Limit() {
   return (
