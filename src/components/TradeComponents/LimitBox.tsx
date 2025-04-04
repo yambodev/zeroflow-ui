@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { ArrowDown } from 'lucide-react'
+import ConnectWalletButton from '../ui/connect-wallet-button'
 
 export function LimitBox() {
   const [sellValue, setSellValue] = useState('')
@@ -116,11 +117,7 @@ export function LimitBox() {
           ))}
         </div>
       </div>
-
-      {/*Conect wallet button*/}
-      <Button className="bg-pink-600/40 hover:bg-pink-500/50 w-full py-3 text-lg text-pink-600 rounded-lg cursor-pointer">
-        Conect Wallet
-      </Button>
+      <ConnectWalletButton />
     </div>
   )
 }

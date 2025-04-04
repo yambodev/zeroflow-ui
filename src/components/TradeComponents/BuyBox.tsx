@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ChevronDown } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import ConnectWalletButton from '../ui/connect-wallet-button'
 
 const amounts = [100, 300, 1000]
 const tokens = ['ETH', 'USDC', 'USDT', 'WBTC']
@@ -51,10 +52,7 @@ export function BuyBox() {
         ))}
       </div>
 
-      {/* Connect Wallet Button */}
-      <Button className="bg-pink-600/40 hover:bg-pink-500/50 w-full py-3 text-lg text-pink-600 rounded-lg">
-        Conectar billetera
-      </Button>
+      <ConnectWalletButton />
     </Card>
   )
 }

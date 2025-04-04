@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { IoSwapVerticalSharp } from 'react-icons/io5'
 import { TokenSelector } from './TokenSelector'
+import ConnectWalletButton from '../ui/connect-wallet-button'
 
 const tokens = [
   { name: 'Ethereum', symbol: 'ETH', address: '', icon: '/eth-logo.svg' },
@@ -79,10 +80,7 @@ export function SendBox() {
           className="bg-gray-900 border-none text-white placeholder-gray-500"
         />
       </div>
-      {/*Conect wallet*/}
-      <Button className="bg-pink-600/40 hover:bg-pink-500/50 w-full py-3 text-lg text-pink-600 rounded-lg cursor-pointer">
-        Conect Wallet
-      </Button>
+      <ConnectWalletButton />
     </Card>
   )
 }
