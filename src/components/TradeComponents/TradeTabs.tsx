@@ -16,7 +16,7 @@ export function TradeTabs() {
   ]
 
   return (
-    <Tabs value={pathname} className="w-fit flex justify-center mb-2">
+    <Tabs value={pathname} className="w-fit flex justify-center mb-3">
       <TabsList className="relative flex space-x-2 bg-black p-1 rounded-full">
         {tabs.map((tab) => {
           const isActive = pathname === tab.path
@@ -26,7 +26,7 @@ export function TradeTabs() {
               key={tab.path}
               value={tab.path}
               onClick={() => router.push(tab.path)}
-              className={`relative px-8 py-2 text-sm rounded-full ${isActive ? '' : 'text-gray-400 hover:text-white'}`}
+              className={`relative px-8 py-2 text-sm rounded-full ${!isActive && 'text-gray-400 hover:text-white cursor-pointer'}`}
             >
               {isActive && (
                 <motion.span

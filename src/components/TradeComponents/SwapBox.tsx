@@ -3,16 +3,28 @@
 import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { FaArrowDown } from 'react-icons/fa6'
-import ConnectWalletButton from '../ui/connect-wallet-button'
-import { Card } from '../ui/card'
-import { IoIosArrowDown } from 'react-icons/io'
+import { SwapCard } from './SwapCard'
 
-export function SwapBox() {
-  const [sellValue, setSellValue] = useState('')
-  const [buyValue, setBuyValue] = useState('')
-  const [sellCurrency, setSellCurrency] = useState('ETH')
-  const [buyCurrency, setBuyCurrency] = useState('Select token')
-  const [selected, setSelected] = useState('sell')
+export interface SwapBoxProps {
+  initialSellValue?: string
+  initialBuyValue?: string
+  initialSellCurrency?: string
+  initialBuyCurrency?: string
+  initialSelected?: 'sell' | 'buy'
+}
+
+export function SwapBox({
+  initialSellValue = '',
+  initialBuyValue = '',
+  initialSellCurrency = 'ETH',
+  initialBuyCurrency = 'Select token',
+  initialSelected = 'sell',
+}: SwapBoxProps) {
+  const [sellValue, setSellValue] = useState(initialSellValue)
+  const [buyValue, setBuyValue] = useState(initialBuyValue)
+  const [sellCurrency, setSellCurrency] = useState(initialSellCurrency)
+  const [buyCurrency, setBuyCurrency] = useState(initialBuyCurrency)
+  const [selected, setSelected] = useState(initialSelected)
 
   const sellInputRef = useRef<HTMLInputElement>(null)
   const buyInputRef = useRef<HTMLInputElement>(null)
@@ -35,35 +47,18 @@ export function SwapBox() {
 
   return (
     <div className="text-gray-300 rounded-xl space-y-4 w-full max-w-md relative">
-      {/* Card (Sell) */}
-      <Card className={`p-4 cursor-pointer rounded-xl ${selected === 'sell' ? 'bg-background' : 'bg-secondary'} m-1`}>
-        <div className="rounded-xl gap-3 flex flex-col">
-          <p className="text-sm">Sell</p>
-          <input
-            ref={sellInputRef}
-            type="number"
-            value={sellValue}
-            disabled={selected !== 'sell'}
-            onChange={(e) => setSellValue(e.target.value)}
-            className="bg-transparent w-full text-3xl outline-none"
-            placeholder="0"
-          />
-          <div className="flex justify-between items-center">
-            <p className="text-xs text-gray-500">$0</p>
-            <button
-              className={`flex items-center ${selected === 'buy' ? 'bg-pink-500 hover:bg-pink-600' : 'bg-secondary hover:bg-[#333]'}  text-sm px-3 py-1 rounded-full`}
-            >
-              {sellCurrency}
-              <span className="ml-1">
-                <IoIosArrowDown />
-              </span>
-            </button>
-          </div>
-        </div>
-      </Card>
+      {/* Sell Card */}
+      <SwapCard
+        label="Sell"
+        value={sellValue}
+        onValueChange={(e) => setSellValue(e.target.value)}
+        currency={sellCurrency}
+        isSelected={selected === 'sell'}
+        inputRef={sellInputRef}
+      />
 
       {/* Swap button */}
-      <div className="flex justify-center z-10 absolute w-full left-0 top-[calc(50%-46px)]">
+      <div className="flex justify-center z-10 absolute w-full left-0 top-[calc(50%-21px)]">
         <Button
           variant="secondary"
           className="bg-[#181818] hover:bg-[#333] cursor-pointer py-4 px-2 rounded-xl border-4 border-background shadow-md"
@@ -75,34 +70,15 @@ export function SwapBox() {
         </Button>
       </div>
 
-      {/* Card (Buy) */}
-      <Card className={`p-4 cursor-pointer rounded-xl ${selected === 'buy' ? 'bg-background' : 'bg-secondary'} m-1`}>
-        <div className="rounded-xl gap-3 flex flex-col">
-          <p className="text-sm">Buy</p>
-          <input
-            ref={buyInputRef}
-            type="number"
-            value={buyValue}
-            disabled={selected !== 'buy'}
-            onChange={(e) => setBuyValue(e.target.value)}
-            className="bg-transparent w-full text-3xl outline-none"
-            placeholder="0"
-          />
-          <div className="flex justify-between items-center">
-            <p className="text-xs text-gray-500">$0</p>
-            <button
-              className={`flex items-center ${selected === 'sell' ? 'bg-pink-500 hover:bg-pink-600' : 'bg-secondary hover:bg-[#333]'}  text-white text-sm px-3 py-1 rounded-full`}
-            >
-              {buyCurrency}
-              <span className="ml-1">
-                <IoIosArrowDown />
-              </span>
-            </button>
-          </div>
-        </div>
-      </Card>
-
-      <ConnectWalletButton />
+      {/* Buy Card */}
+      <SwapCard
+        label="Buy"
+        value={buyValue}
+        onValueChange={(e) => setBuyValue(e.target.value)}
+        currency={buyCurrency}
+        isSelected={selected === 'buy'}
+        inputRef={buyInputRef}
+      />
     </div>
   )
 }

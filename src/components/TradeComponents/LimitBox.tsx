@@ -2,114 +2,71 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { ArrowDown } from 'lucide-react'
 import ConnectWalletButton from '../ui/connect-wallet-button'
+import { SwapBox } from './SwapBox'
+import { Card } from '../ui/card'
+import { HiArrowsUpDown } from 'react-icons/hi2'
 
 export function LimitBox() {
-  const [sellValue, setSellValue] = useState('')
-  const [buyValue, setBuyValue] = useState('')
-  const [sellCurrency, setSellCurrency] = useState('USDC')
-  const [buyCurrency, setBuyCurrency] = useState('ETH')
+  const [sellCurrency, setSellCurrency] = useState('ETH')
+  const [buyCurrency, setBuyCurrency] = useState('USDT')
   const [selectedDuration, setSelectedDuration] = useState('1 semana')
 
   // Market price simulation
-  const [marketPrice, setMarketPrice] = useState(0.000556891)
-
-  // Swap coins function
-  const swapCurrencies = () => {
-    setSellCurrency(buyCurrency)
-    setBuyCurrency(sellCurrency)
-    setSellValue(buyValue)
-    setBuyValue(sellValue)
-  }
+  const [marketPrice, setMarketPrice] = useState(1742)
 
   return (
-    <div className="bg-gray-800 text-gray-400 p-6 rounded-lg space-y-6 w-full max-w-md text-center">
+    <div className="text-gray-400 rounded-lg w-full max-w-md">
       {/* Reference price*/}
-      <div className="bg-gray-900 p-4 rounded-lg mb-4">
+      <Card className="bg-secondary p-4 rounded-xl m-1 gap-2 relative">
         <p className="text-sm text-gray-400">
-          When 1 <span className="text-blue-400">{sellCurrency}</span> costs
+          When 1 <span className="text-white text-md font-semibold">{sellCurrency}</span> is worth
         </p>
-        <h2 className="text-3xl font-semibold">{marketPrice.toFixed(9)}</h2>
-        <p className="text-sm text-gray-400">ETH</p>
+        {/* 
+        <h2 className="text-3xl font-semibold">{marketPrice.toFixed(1)}</h2> */}
+        <input
+          type="number"
+          value={marketPrice}
+          onChange={(e) => setMarketPrice(parseInt(e.target.value))}
+          className="bg-transparent w-full text-3xl font-semibold outline-none"
+          placeholder="0"
+        />
+        <div className="flex flex-col gap-1 text-gray-400 items-end absolute right-5 top-5">
+          <HiArrowsUpDown />
+          <p className="text-sm text-gray-400">{buyCurrency}</p>
+        </div>
 
         {/*settings button*/}
-        <div className="flex space-x-2 mt-3">
-          <Button variant="secondary" className="bg-gray-800 px-4 py-1 rounded-lg">
+        <div className="flex space-x-2">
+          <Button
+            variant="secondary"
+            className="px-4 py-1 rounded-full border border-gray-500 bg-gray-600 hover:text-gray-500 hover:bg-gray-600/80"
+          >
             Market
           </Button>
           {['+1%', '+5%', '+10%'].map((percentage) => (
-            <Button key={percentage} variant="secondary" className="bg-gray-800 px-3 py-1 rounded-lg">
+            <Button
+              key={percentage}
+              variant="secondary"
+              className="px-3 py-1 rounded-full border border-gray-600 hover:text-gray-500"
+            >
               {percentage}
             </Button>
           ))}
         </div>
-      </div>
+      </Card>
 
-      {/* Sell Section*/}
-      <div className="bg-gray-900 p-4 rounded-lg mb-4">
-        <p className="text-sm text-gray-400">Sell</p>
-        <input
-          type="number"
-          value={sellValue}
-          onChange={(e) => setSellValue(e.target.value)}
-          className="bg-transparent w-full text-2xl outline-none"
-          placeholder="0"
-        />
-        <div className="flex justify-between items-center mt-2">
-          <p className="text-xs text-gray-500">USD 0</p>
-          <select
-            value={sellCurrency}
-            onChange={(e) => setSellCurrency(e.target.value)}
-            className="bg-gray-800 px-3 py-1 rounded-lg"
-          >
-            <option value="USDC">USDC</option>
-            <option value="ETH">ETH</option>
-            <option value="BTC">BTC</option>
-          </select>
-        </div>
-      </div>
+      <SwapBox />
 
-      {/* Swap Button*/}
-      <div className="flex justify-center mb-4">
-        <Button variant="secondary" className="bg-gray-800 hover:bg-gray-600 p-2 rounded-full" onClick={swapCurrencies}>
-          <ArrowDown size={20} />
-        </Button>
-      </div>
-
-      {/*Buy Section */}
-      <div className="bg-gray-900 p-4 rounded-lg mb-4">
-        <p className="text-sm text-gray-400">Buy</p>
-        <input
-          type="number"
-          value={buyValue}
-          onChange={(e) => setBuyValue(e.target.value)}
-          className="bg-transparent w-full text-2xl outline-none"
-          placeholder="0"
-        />
-        <div className="flex justify-between items-center mt-2">
-          <p className="text-xs text-gray-500">USD 0</p>
-          <select
-            value={buyCurrency}
-            onChange={(e) => setBuyCurrency(e.target.value)}
-            className="bg-gray-800 px-3 py-1 rounded-lg"
-          >
-            <option value="ETH">ETH</option>
-            <option value="USDC">USDC</option>
-            <option value="BTC">BTC</option>
-          </select>
-        </div>
-      </div>
-
-      {/*Veciation Section*/}
-      <div className="bg-gray-900 p-4 rounded-lg mb-4">
-        <p className="text-sm text-gray-400">Veciation</p>
+      {/*Expiry Section*/}
+      <div className="bg-secondary p-4 rounded-xl mb-4">
+        <p className="text-sm text-gray-400">Expiry</p>
         <div className="flex space-x-2 mt-2">
           {['1 día', '1 semana', '1 mes', '1 año'].map((duration) => (
             <Button
               key={duration}
               variant="secondary"
-              className={`px-3 py-1 rounded-lg ${selectedDuration === duration ? 'bg-gray-700' : 'bg-gray-800'}`}
+              className={`px-3 py-1 rounded-full border border-gray-600 hover:text-gray-500 ${selectedDuration === duration ? 'bg-gray-600 hover:bg-gray-600/80' : ''}`}
               onClick={() => setSelectedDuration(duration)}
             >
               {duration}
