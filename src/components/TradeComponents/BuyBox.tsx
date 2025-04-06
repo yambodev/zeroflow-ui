@@ -6,37 +6,46 @@ import { Card } from '@/components/ui/card'
 import { ChevronDown } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import ConnectWalletButton from '../ui/connect-wallet-button'
+import { Token } from '@/mock/tokens'
+import { TokenSelector } from './TokenSelector'
+import { IoIosArrowDown } from 'react-icons/io'
+
+interface BuyBoxProps {
+  label: string
+  value: string
+  currency: string
+  isSelected: boolean
+}
 
 const amounts = [100, 300, 1000]
-const tokens = ['ETH', 'USDC', 'USDT', 'WBTC']
 
-export function BuyBox() {
+export function BuyBox({ isSelected, currency }: BuyBoxProps) {
   const [amount, setAmount] = useState(1000)
-  const [selectedToken, setSelectedToken] = useState<string | null>(null)
+  const [selectedToken, setSelectedToken] = useState<Token | null>(null)
+  const [openTokenSelector, setOpenTokenSelector] = useState(false)
+
+  const handleSelectToken = (token: Token) => {
+    setSelectedToken(token)
+    setOpenTokenSelector(false)
+  }
 
   return (
-    <Card className="bg-gray-800 text-gray-400 p-6 rounded-lg space-y-6 w-full max-w-md text-center">
+    <Card className={`p-4 cursor-pointer rounded-xl bg-secondary m-1 w-full`}>
       <p className="text-gray-400 text-sm text-start">Buy</p>
       {/* Amount */}
-      <h2 className="text-5xl font-semibold">USD{amount}</h2>
+      <h2 className="text-[80px] text-gray-600 font-semibold text-center">USD{amount}</h2>
 
       {/* Token Selector */}
 
       <div className="flex items-center justify-center">
-        <Popover>
-          <PopoverTrigger asChild className="flex items-center justify-center">
-            <Button className="bg-pink-600 hover:bg-pink-600 text-white py-2 flex items-center justify-center rounded-xl w-[200px]">
-              {selectedToken ? selectedToken : 'Selecciona un token'} <ChevronDown className="ml-2" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="text-white rounded-lg p-2">
-            {tokens.map((token) => (
-              <p key={token} onClick={() => setSelectedToken(token)} className="p-2 cursor-pointer rounded-md">
-                {token}
-              </p>
-            ))}
-          </PopoverContent>
-        </Popover>
+        <Button
+          className={`flex items-center gap-2 ${isSelected ? 'bg-secondary hover:bg-[#333]' : 'bg-pink-500 hover:bg-pink-600'} text-sm px-3 py-1 rounded-full`}
+          onClick={() => setOpenTokenSelector(true)}
+        >
+          {!selectedToken && <span className="text-bold">Select Token</span>}
+          <span>{selectedToken ? selectedToken.slug : currency}</span>
+          <IoIosArrowDown className="ml-1" />
+        </Button>
       </div>
 
       {/* Amount Selection */}
@@ -53,6 +62,13 @@ export function BuyBox() {
       </div>
 
       <ConnectWalletButton />
+      {openTokenSelector && (
+        <TokenSelector
+          open={openTokenSelector}
+          onOpenAction={setOpenTokenSelector}
+          onSelectAction={handleSelectToken}
+        />
+      )}
     </Card>
   )
 }

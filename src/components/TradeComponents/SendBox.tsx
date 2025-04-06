@@ -1,75 +1,97 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { IoSwapVerticalSharp } from 'react-icons/io5'
-import { TokenSelector } from './TokenSelector'
 import ConnectWalletButton from '../ui/connect-wallet-button'
+import { Token } from '@/mock/tokens'
+import { Button } from '../ui/button'
+import { IoIosArrowDown } from 'react-icons/io'
+import { TokenSelector } from './TokenSelector'
 
-const tokens = [
-  { name: 'Ethereum', symbol: 'ETH', address: '', icon: '/eth-logo.svg' },
-  { name: 'USDC', symbol: 'USDC', address: '0xA0b8...E848', icon: '/usdc-logo.svg' },
-  { name: 'Tether', symbol: 'USDT', address: '0xdAC1...1EC7', icon: '/usdt-logo.svg' },
-  { name: 'Wrapped Bitcoin', symbol: 'WBTC', address: '0x2260...C599', icon: '/wbtc-logo.svg' },
-  { name: 'Base ETH', symbol: 'ETH', address: '', icon: '/baseeth-logo.svg' },
-]
+interface SendBoxProps {
+  label: string
+  value: string
+  currency: string
+  isSelected: boolean
+}
 
-export function SendBox() {
+export function SendBox({ isSelected, currency }: SendBoxProps) {
   const [amount, setAmount] = useState('0.00')
   const [isUSD, setIsUSD] = useState(true)
   const [walletAddress, setWalletAddress] = useState('')
+  const [selectedToken, setSelectedToken] = useState<Token | null>(null)
+  const [openTokenSelector, setOpenTokenSelector] = useState(false)
 
-  const [selectedToken, setSelectedToken] = useState(tokens[0])
-
-  const exchangeRate = 0.00035
+  const handleSelectToken = (token: Token) => {
+    setSelectedToken(token)
+    setOpenTokenSelector(false)
+  }
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9.]/g, '')
     setAmount(value)
   }
+
   const toggleCurrency = () => {
-    if (isUSD) {
-      const ethValue = (parseFloat(amount) * exchangeRate).toFixed(6)
-      setAmount(isNaN(parseFloat(ethValue)) ? '0.00' : ethValue)
-    } else {
-      const usdValue = (parseFloat(amount) / exchangeRate).toFixed(2)
-      setAmount(isNaN(parseFloat(usdValue)) ? '0.00' : usdValue)
-    }
+    const amountNum = parseFloat(amount)
+    if (!selectedToken || isNaN(amountNum)) return
+
+    const newAmount = isUSD
+      ? (amountNum / selectedToken.price).toFixed(6)
+      : (amountNum * selectedToken.price).toFixed(2)
+
+    setAmount(newAmount)
     setIsUSD(!isUSD)
   }
 
+  const displayConvertedValue = () => {
+    const amountNum = parseFloat(amount)
+    if (!selectedToken || isNaN(amountNum)) return isUSD ? '0.000000' : '$0.00'
+
+    return isUSD
+      ? `${(amountNum / selectedToken.price).toFixed(6)} ${selectedToken.slug}`
+      : `$${(amountNum * selectedToken.price).toFixed(2)}`
+  }
+
   return (
-    <Card className="bg-gray-800 text-white p-6 rounded-lg space-y-4 w-full max-w-md">
-      {/*Send Mount */}
+    <Card className={`p-4 cursor-pointer rounded-xl bg-secondary m-1 w-full`}>
+      {/* Send Amount */}
       <div className="text-center">
         <p className="text-gray-400 text-sm text-start">Send</p>
         <div className="flex items-center justify-center text-4xl font-semibold space-x-2">
-          <span className="text-gray-500">{isUSD ? 'USD' : 'ETH'}</span>
+          <span className="text-gray-600 text-[60px] text-center items-center justify-center flex py-5">
+            {isUSD ? 'USD' : selectedToken?.slug || 'TOKEN'}
+          </span>
           <input
             type="text"
             value={amount}
             onChange={handleAmountChange}
-            className="bg-transparent border-none outline-none text-white text-4xl font-semibold text-center w-28"
+            className="bg-transparent border-none outline-none text-gray-600 text-[60px] font-semibold text-center w-28"
           />
         </div>
         <div className="flex flex-grow items-center justify-center mt-2">
-          <p className="text-gray-500 text-sm">
-            {isUSD
-              ? `${(parseFloat(amount) * exchangeRate || 0).toFixed(6)} ETH`
-              : `$${(parseFloat(amount) / exchangeRate || 0).toFixed(2)} USD`}
-          </p>
+          <p className="text-gray-500 text-sm">{displayConvertedValue()}</p>
           <button onClick={toggleCurrency} className="text-gray-400 hover:text-white transition">
             <IoSwapVerticalSharp className="ml-2" size={15} />
           </button>
         </div>
       </div>
-      {/*Token selector*/}
-      <div className="flex items-center justify-between px-4 py-3 rounded-lg cursor-pointer">
-        <TokenSelector onSelectAction={(token) => setSelectedToken(token)} />
+
+      {/* Token Selector*/}
+      <div className="flex items-center justify-center">
+        <Button
+          className={`flex items-center gap-2 ${isSelected ? 'bg-secondary hover:bg-[#333]' : 'bg-pink-500 hover:bg-pink-600'} text-sm px-3 py-1 rounded-full`}
+          onClick={() => setOpenTokenSelector(true)}
+        >
+          {!selectedToken && <span className="text-bold">Select Token</span>}
+          <span>{selectedToken ? selectedToken.slug : currency}</span>
+          <IoIosArrowDown className="ml-1" />
+        </Button>
       </div>
-      {/* Wallet addres*/}
+
+      {/* Wallet address */}
       <div>
         <p className="text-gray-400 text-sm mb-1">To</p>
         <Input
@@ -80,7 +102,15 @@ export function SendBox() {
           className="bg-gray-900 border-none text-white placeholder-gray-500"
         />
       </div>
+
       <ConnectWalletButton />
+      {openTokenSelector && (
+        <TokenSelector
+          open={openTokenSelector}
+          onOpenAction={setOpenTokenSelector}
+          onSelectAction={handleSelectToken}
+        />
+      )}
     </Card>
   )
 }
