@@ -6,6 +6,7 @@ import ConnectWalletButton from '../ui/connect-wallet-button'
 import { SwapBox } from './SwapBox'
 import { Card } from '../ui/card'
 import { HiArrowsUpDown } from 'react-icons/hi2'
+import { mockTokens } from '@/mock/tokens'
 
 export function LimitBox() {
   const [sellCurrency, setSellCurrency] = useState('ETH')
@@ -56,13 +57,13 @@ export function LimitBox() {
         </div>
       </Card>
 
-      <SwapBox />
+      <SwapBox initialBuyToken={mockTokens[2]} initialSellToken={mockTokens[1]} />
 
       {/*Expiry Section*/}
       <div className="bg-secondary p-4 rounded-xl mb-4">
         <p className="text-sm text-gray-400">Expiry</p>
         <div className="flex space-x-2 mt-2">
-          {['1 día', '1 semana', '1 mes', '1 año'].map((duration) => (
+          {['1 day', '1 week', '1 month', '1 year'].map((duration) => (
             <Button
               key={duration}
               variant="secondary"
