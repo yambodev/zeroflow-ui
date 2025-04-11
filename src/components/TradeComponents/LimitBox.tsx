@@ -6,11 +6,13 @@ import ConnectWalletButton from '../ui/connect-wallet-button'
 import { SwapBox } from './SwapBox'
 import { Card } from '../ui/card'
 import { HiArrowsUpDown } from 'react-icons/hi2'
-import { mockTokens } from '@/mock/tokens'
+import { mockTokens, Token } from '@/mock/tokens'
+import { SelectTokenButton } from './SelectTokenButton'
 
 export function LimitBox() {
-  const [sellCurrency, setSellCurrency] = useState('ETH')
-  const [buyCurrency, setBuyCurrency] = useState('USDT')
+  const [sellToken, setSellToken] = useState<Token | null>(mockTokens[1])
+  const [buyToken, setBuyToken] = useState<Token | null>(mockTokens[2])
+
   const [selectedDuration, setSelectedDuration] = useState('1 semana')
 
   // Market price simulation
@@ -20,9 +22,18 @@ export function LimitBox() {
     <div className="text-gray-400 rounded-lg w-full max-w-md">
       {/* Reference price*/}
       <Card className="bg-secondary p-4 rounded-xl m-1 gap-2 relative">
-        <p className="text-sm text-gray-400">
-          When 1 <span className="text-white text-md font-semibold">{sellCurrency}</span> is worth
-        </p>
+        <div className="text-sm text-gray-400 flex flex-grow">
+          When 1{' '}
+          <div className="-mt-[6px]">
+            <SelectTokenButton
+              token={sellToken}
+              onTokenSelect={setSellToken}
+              label={sellToken?.slug || 'Select'}
+              variant="secondary"
+            />
+          </div>
+          is worth
+        </div>
         {/* 
         <h2 className="text-3xl font-semibold">{marketPrice.toFixed(1)}</h2> */}
         <input
@@ -34,7 +45,12 @@ export function LimitBox() {
         />
         <div className="flex flex-col gap-1 text-gray-400 items-end absolute right-5 top-5">
           <HiArrowsUpDown />
-          <p className="text-sm text-gray-400">{buyCurrency}</p>
+          <SelectTokenButton
+            token={buyToken}
+            onTokenSelect={setBuyToken}
+            label={buyToken?.slug || 'Select'}
+            variant="secondary"
+          />
         </div>
 
         {/*settings button*/}
@@ -57,7 +73,12 @@ export function LimitBox() {
         </div>
       </Card>
 
-      <SwapBox initialBuyToken={mockTokens[2]} initialSellToken={mockTokens[1]} />
+      <SwapBox
+        initialBuyToken={buyToken}
+        initialSellToken={sellToken}
+        setSellToken={setSellToken}
+        setBuyToken={setBuyToken}
+      />
 
       {/*Expiry Section*/}
       <div className="bg-secondary p-4 rounded-xl mb-4">

@@ -4,35 +4,37 @@ import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { FaArrowDown } from 'react-icons/fa6'
 import { SwapCard } from './SwapCard'
-import { Token, mockTokens } from '@/mock/tokens'
+import { Token } from '@/mock/tokens'
 
 export interface SwapBoxProps {
   initialSelected?: 'sell' | 'buy'
   initialBuyToken: Token | null
   initialSellToken: Token | null
+  setSellToken: React.Dispatch<React.SetStateAction<Token | null>>
+  setBuyToken: React.Dispatch<React.SetStateAction<Token | null>>
 }
 
 export function SwapBox({
   initialSelected = 'sell',
-  initialSellToken = mockTokens[1],
-  initialBuyToken = null,
+  initialSellToken,
+  initialBuyToken,
+  setSellToken,
+  setBuyToken,
 }: SwapBoxProps) {
   const [selected, setSelected] = useState<'sell' | 'buy'>(initialSelected)
-  const [sellToken, setSellToken] = useState<Token | null>(initialSellToken)
-  const [buyToken, setBuyToken] = useState<Token | null>(initialBuyToken)
 
-  // States for the input values (as strings) from each card
-  const [sellValue, setSellValue] = useState<string>('') // Value from sell card
-  const [buyValue, setBuyValue] = useState<string>('') // Value from buy card
+  // Controlled input values
+  const [sellValue, setSellValue] = useState<string>('')
+  const [buyValue, setBuyValue] = useState<string>('')
 
-  // Refs for input fields
+  // Input refs
   const sellInputRef = useRef<HTMLInputElement>(null)
   const buyInputRef = useRef<HTMLInputElement>(null)
 
-  // Function to swap tokens (and clear the input values)
+  // Swap function
   const swapCurrencies = () => {
-    setSellToken(buyToken)
-    setBuyToken(sellToken)
+    setSellToken(initialBuyToken)
+    setBuyToken(initialSellToken)
     setSelected(selected === 'sell' ? 'buy' : 'sell')
     setSellValue('')
     setBuyValue('')
@@ -50,32 +52,30 @@ export function SwapBox({
   // Conversion logic when the sell card is active:
   // When the sell value changes, update the buy value based on token prices.
   useEffect(() => {
-    if (selected === 'sell' && sellToken && buyToken) {
+    if (selected === 'sell' && initialSellToken && initialBuyToken) {
       const numericSell = Number(sellValue)
       if (!isNaN(numericSell)) {
-        // Conversion: value in USD from sell token divided by buy token price
-        const converted = (numericSell * sellToken.price) / buyToken.price
+        const converted = (numericSell * initialSellToken.price) / initialBuyToken.price
         setBuyValue(converted.toString())
       } else {
         setBuyValue('')
       }
     }
-  }, [sellValue, sellToken, buyToken, selected])
+  }, [sellValue, initialSellToken, initialBuyToken, selected])
 
   // Conversion logic when the buy card is active:
   // When the buy value changes, update the sell value accordingly.
   useEffect(() => {
-    if (selected === 'buy' && sellToken && buyToken) {
+    if (selected === 'buy' && initialSellToken && initialBuyToken) {
       const numericBuy = Number(buyValue)
       if (!isNaN(numericBuy)) {
-        // Conversion: value in USD from buy token divided by sell token price
-        const converted = (numericBuy * buyToken.price) / sellToken.price
+        const converted = (numericBuy * initialBuyToken.price) / initialSellToken.price
         setSellValue(converted.toString())
       } else {
         setSellValue('')
       }
     }
-  }, [buyValue, sellToken, buyToken, selected])
+  }, [buyValue, initialSellToken, initialBuyToken, selected])
 
   return (
     <div className="text-gray-300 rounded-xl space-y-4 w-full max-w-md relative">
@@ -84,7 +84,7 @@ export function SwapBox({
         label="Sell"
         isSelected={selected === 'sell'}
         inputRef={sellInputRef}
-        token={sellToken}
+        token={initialSellToken}
         value={sellValue}
         onValueChange={setSellValue}
         setToken={setSellToken}
@@ -108,7 +108,7 @@ export function SwapBox({
         label="Buy"
         isSelected={selected === 'buy'}
         inputRef={buyInputRef}
-        token={buyToken}
+        token={initialBuyToken}
         value={buyValue}
         onValueChange={setBuyValue}
         setToken={setBuyToken}
