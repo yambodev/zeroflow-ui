@@ -1,4 +1,4 @@
-import { PoolsTable } from '@/components/PoolsTable'
+import { PoolsTable } from '@/components/PoolsComponents/PoolsTable'
 import { Button } from '@/components/ui/button'
 // import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { IoIosAdd } from 'react-icons/io'

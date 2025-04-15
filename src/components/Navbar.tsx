@@ -5,9 +5,11 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from './ui/navigation-menu'
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu'
 import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { cn } from '@/lib/utils'
+import { AiOutlineSwap, AiOutlineBarChart, AiOutlineSend, AiOutlineCreditCard } from 'react-icons/ai'
 
 export function Navbar() {
   return (
@@ -19,28 +21,51 @@ export function Navbar() {
         <div className="flex justify-center w-full">
           <NavigationMenu className="gap-3 list-none">
             <NavigationMenuItem>
-              <Link href="/about" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    'bg-transparent hover:bg-gray-800 hover:text-purple-400 text-white border-0',
-                  )}
-                >
-                  About
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    'bg-transparent hover:bg-gray-800 hover:text-purple-400 text-white border-0',
-                  )}
-                >
-                  Trade
-                </NavigationMenuLink>
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className={navigationMenuTriggerStyle()}>
+                    Trade
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48">
+                  <DropdownMenuItem
+                    asChild
+                    className="flex items-center px-4 py-3 text-white hover:bg-gray-800 rounded-lg"
+                  >
+                    <Link href="/swap" className="flex items-center space-x-3 w-full">
+                      <AiOutlineSwap size={20} className="text-gray-400" />
+                      <span>Swap</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    asChild
+                    className="flex items-center px-4 py-3 text-white hover:bg-gray-800 rounded-lg"
+                  >
+                    <Link href="/limit" className="flex items-center space-x-3 w-full">
+                      <AiOutlineBarChart size={20} className="text-gray-400" />
+                      <span>Limit</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    asChild
+                    className="flex items-center px-4 py-3 text-white hover:bg-gray-800 rounded-lg"
+                  >
+                    <Link href="/send" className="flex items-center space-x-3 w-full">
+                      <AiOutlineSend size={20} className="text-gray-400" />
+                      <span>Send</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    asChild
+                    className="flex items-center px-4 py-3 text-white hover:bg-gray-800 rounded-lg"
+                  >
+                    <Link href="/buy" className="flex items-center space-x-3 w-full">
+                      <AiOutlineCreditCard size={20} className="text-gray-400" />
+                      <span>Buy</span>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/pools" legacyBehavior passHref>
