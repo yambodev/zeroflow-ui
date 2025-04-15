@@ -1,37 +1,22 @@
 'use client'
 
 import { useState } from 'react'
-import { Input } from '@/components/ui/input'
 import { Card } from '@/components/ui/card'
 import { IoSwapVerticalSharp } from 'react-icons/io5'
 import ConnectWalletButton from '../ui/connect-wallet-button'
-import { Token } from '@/mock/tokens'
-import { Button } from '../ui/button'
-import { IoIosArrowDown } from 'react-icons/io'
-import { TokenSelector } from './TokenSelector'
+import { Token, mockTokens } from '@/mock/tokens'
+import { SelectTokenButton } from './SelectTokenButton'
+import { toFixedIfNecessary } from '@/utils/numberUtils'
+import AmountInput from './AmountInput'
 
-interface SendBoxProps {
-  label: string
-  value: string
-  currency: string
-  isSelected: boolean
-}
-
-export function SendBox({ isSelected, currency }: SendBoxProps) {
-  const [amount, setAmount] = useState('0.00')
+export function SendBox() {
+  const [amount, setAmount] = useState('0')
   const [isUSD, setIsUSD] = useState(true)
   const [walletAddress, setWalletAddress] = useState('')
-  const [selectedToken, setSelectedToken] = useState<Token | null>(null)
-  const [openTokenSelector, setOpenTokenSelector] = useState(false)
+  const [selectedToken, setSelectedToken] = useState<Token | null>(mockTokens[1])
 
   const handleSelectToken = (token: Token) => {
     setSelectedToken(token)
-    setOpenTokenSelector(false)
-  }
-
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9.]/g, '')
-    setAmount(value)
   }
 
   const toggleCurrency = () => {
@@ -39,38 +24,28 @@ export function SendBox({ isSelected, currency }: SendBoxProps) {
     if (!selectedToken || isNaN(amountNum)) return
 
     const newAmount = isUSD
-      ? (amountNum / selectedToken.price).toFixed(6)
-      : (amountNum * selectedToken.price).toFixed(2)
+      ? toFixedIfNecessary(amountNum / selectedToken.price, 4)
+      : toFixedIfNecessary(amountNum * selectedToken.price, 2)
 
-    setAmount(newAmount)
+    setAmount(`${newAmount}`)
     setIsUSD(!isUSD)
   }
 
   const displayConvertedValue = () => {
     const amountNum = parseFloat(amount)
-    if (!selectedToken || isNaN(amountNum)) return isUSD ? '0.000000' : '$0.00'
+    if (!selectedToken || isNaN(amountNum)) return isUSD ? '0.00' : '$0'
 
     return isUSD
-      ? `${(amountNum / selectedToken.price).toFixed(6)} ${selectedToken.slug}`
-      : `$${(amountNum * selectedToken.price).toFixed(2)}`
+      ? `${toFixedIfNecessary(amountNum / selectedToken.price, 4)} ${selectedToken.slug}`
+      : `$${toFixedIfNecessary(amountNum * selectedToken.price, 2)}`
   }
 
   return (
-    <Card className={`p-4 cursor-pointer rounded-xl bg-secondary m-1 w-full`}>
+    <Card className="p-4 cursor-pointer rounded-xl bg-secondary m-1 w-full relative">
       {/* Send Amount */}
       <div className="text-center">
         <p className="text-gray-400 text-sm text-start">Send</p>
-        <div className="flex items-center justify-center text-4xl font-semibold space-x-2">
-          <span className="text-gray-600 text-[60px] text-center items-center justify-center flex py-5">
-            {isUSD ? 'USD' : selectedToken?.slug || 'TOKEN'}
-          </span>
-          <input
-            type="text"
-            value={amount}
-            onChange={handleAmountChange}
-            className="bg-transparent border-none outline-none text-gray-600 text-[60px] font-semibold text-center w-28"
-          />
-        </div>
+        <AmountInput value={amount} onValueChange={setAmount} isUSD={isUSD} />
         <div className="flex flex-grow items-center justify-center mt-2">
           <p className="text-gray-500 text-sm">{displayConvertedValue()}</p>
           <button onClick={toggleCurrency} className="text-gray-400 hover:text-white transition">
@@ -79,22 +54,11 @@ export function SendBox({ isSelected, currency }: SendBoxProps) {
         </div>
       </div>
 
-      {/* Token Selector*/}
-      <div className="flex items-center justify-center">
-        <Button
-          className={`flex items-center gap-2 ${isSelected ? 'bg-secondary hover:bg-[#333]' : 'bg-pink-500 hover:bg-pink-600'} text-sm px-3 py-1 rounded-full`}
-          onClick={() => setOpenTokenSelector(true)}
-        >
-          {!selectedToken && <span className="text-bold">Select Token</span>}
-          <span>{selectedToken ? selectedToken.slug : currency}</span>
-          <IoIosArrowDown className="ml-1" />
-        </Button>
-      </div>
-
+      <SelectTokenButton token={selectedToken} onTokenSelect={handleSelectToken} label="select token" />
       {/* Wallet address */}
       <div>
         <p className="text-gray-400 text-sm mb-1">To</p>
-        <Input
+        <input
           type="text"
           placeholder="Wallet address"
           value={walletAddress}
@@ -102,15 +66,7 @@ export function SendBox({ isSelected, currency }: SendBoxProps) {
           className="bg-gray-900 border-none text-white placeholder-gray-500"
         />
       </div>
-
       <ConnectWalletButton />
-      {openTokenSelector && (
-        <TokenSelector
-          open={openTokenSelector}
-          onOpenAction={setOpenTokenSelector}
-          onSelectAction={handleSelectToken}
-        />
-      )}
     </Card>
   )
 }
