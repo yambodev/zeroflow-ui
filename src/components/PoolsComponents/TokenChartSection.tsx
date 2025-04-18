@@ -1,0 +1,120 @@
+'use client'
+
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { useState } from 'react'
+import { cn } from '@/lib/utils'
+import { LuPackageSearch } from 'react-icons/lu'
+import { TbArrowForwardUp } from 'react-icons/tb'
+
+const timeRanges = ['1H', '1D', '1W', '1M', '1Y'] as const
+type TimeRange = (typeof timeRanges)[number]
+
+const dummyData: Record<TimeRange, number[]> = {
+  '1H': [5, 7, 3, 4, 6],
+  '1D': [10, 25, 15, 40, 5],
+  '1W': [20, 5, 35, 10, 10, 25, 30, 15, 20, 10, 12, 6, 2],
+  '1M': [10, 20, 15, 30, 25, 5, 12, 8, 18, 9],
+  '1Y': [30, 40, 35, 50, 45, 55, 60],
+}
+
+const dummyDates: Record<TimeRange, string[]> = {
+  '1H': ['11:00', '11:15', '11:30', '11:45', '12:00'],
+  '1D': ['8AM', '10AM', '12PM', '2PM', '4PM'],
+  '1W': [
+    'Apr 10',
+    'Apr 11',
+    'Apr 11',
+    'Apr 12',
+    'Apr 12',
+    'Apr 13',
+    'Apr 13',
+    'Apr 14',
+    'Apr 15',
+    'Apr 15',
+    'Apr 16',
+    'Apr 16',
+    'Apr 17',
+  ],
+  '1M': ['Apr 1', 'Apr 5', 'Apr 10', 'Apr 15', 'Apr 20', 'Apr 25', 'Apr 28', 'Apr 29', 'Apr 30', 'May 1'],
+  '1Y': ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+}
+
+export function TokenChartSection({
+  pair,
+  price,
+  fee = '1%',
+  version = 'v3',
+}: {
+  pair: string
+  price: number | string
+  fee?: string
+  version?: string
+}) {
+  const [range, setRange] = useState<TimeRange>('1W')
+  const values = dummyData[range]
+  const labels = dummyDates[range]
+
+  const max = Math.max(...values)
+
+  return (
+    <Card className="bg-background w-[700px] text-foreground p-4">
+      <CardHeader>
+        <div className="flex justify-between items-start">
+          <div>
+            <CardTitle className="text-lg">{pair}</CardTitle>
+            <div className="flex gap-2 items-center mt-1 text-muted-foreground text-xs">
+              <span>{version}</span>
+              <span>{fee}</span>
+              <span>↕</span>
+            </div>
+          </div>
+
+          <div className="flex gap-2">
+            <div className="cursor-pointer">
+              <LuPackageSearch />
+            </div>
+            <div className="cursor-pointer">
+              <TbArrowForwardUp />
+            </div>
+          </div>
+        </div>
+      </CardHeader>
+
+      <CardContent>
+        <div className="mb-4">
+          <p className="text-3xl font-bold">${price}</p>
+          <p className="text-sm text-muted-foreground">{range === '1W' ? 'Past week' : 'Last period'}</p>
+        </div>
+
+        <div className="relative h-52 flex items-end justify-between gap-1 mb-4">
+          {values.map((v, i) => (
+            <div key={i} className="flex flex-col items-center flex-1">
+              <div
+                className={cn('w-2 sm:w-3 rounded-md bg-pink-500 transition-all')}
+                style={{
+                  height: `${(v / max) * 100}%`,
+                }}
+              ></div>
+              <span className="text-xs text-muted-foreground mt-1">{labels[i]}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-start gap-2">
+          {timeRanges.map((t) => (
+            <Button
+              key={t}
+              variant={t === range ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => setRange(t)}
+              className="rounded-full px-3 text-xs"
+            >
+              {t}
+            </Button>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}

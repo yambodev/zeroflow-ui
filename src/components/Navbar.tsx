@@ -1,14 +1,8 @@
 import Link from 'next/link'
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  navigationMenuTriggerStyle,
-} from './ui/navigation-menu'
+import { NavigationMenu, NavigationMenuItem, navigationMenuTriggerStyle } from './ui/navigation-menu'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu'
 import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
-import { cn } from '@/lib/utils'
 import { AiOutlineSwap, AiOutlineBarChart, AiOutlineSend, AiOutlineCreditCard } from 'react-icons/ai'
 
 export function Navbar() {
@@ -68,15 +62,60 @@ export function Navbar() {
               </DropdownMenu>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/pools" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    'bg-transparent hover:bg-gray-800 hover:text-purple-400 text-white border-0',
-                  )}
-                >
-                  Pools
-                </NavigationMenuLink>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Link href="/explorer">
+                    <Button variant="ghost" className={navigationMenuTriggerStyle()}>
+                      Explorer
+                    </Button>
+                  </Link>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48">
+                  <DropdownMenuItem
+                    asChild
+                    className="flex items-center px-4 py-3 text-white hover:bg-gray-800 rounded-lg"
+                  >
+                    <Link href="explorer/pools" className="flex items-center space-x-3 w-full">
+                      <AiOutlineSwap size={20} className="text-gray-400" />
+                      <span>pools</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    asChild
+                    className="flex items-center px-4 py-3 text-white hover:bg-gray-800 rounded-lg"
+                  >
+                    <Link href="/limit" className="flex items-center space-x-3 w-full">
+                      <AiOutlineBarChart size={20} className="text-gray-400" />
+                      <span>Limit</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    asChild
+                    className="flex items-center px-4 py-3 text-white hover:bg-gray-800 rounded-lg"
+                  >
+                    <Link href="/send" className="flex items-center space-x-3 w-full">
+                      <AiOutlineSend size={20} className="text-gray-400" />
+                      <span>Send</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    asChild
+                    className="flex items-center px-4 py-3 text-white hover:bg-gray-800 rounded-lg"
+                  >
+                    <Link href="/buy" className="flex items-center space-x-3 w-full">
+                      <AiOutlineCreditCard size={20} className="text-gray-400" />
+                      <span>Buy</span>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <Link href="/positions">
+                <Button variant="ghost" className={navigationMenuTriggerStyle()}>
+                  Pool
+                </Button>
               </Link>
             </NavigationMenuItem>
           </NavigationMenu>
