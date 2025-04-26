@@ -3,7 +3,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { cn } from '@/lib/utils'
 import { LuPackageSearch } from 'react-icons/lu'
 import { TbArrowForwardUp } from 'react-icons/tb'
 
@@ -58,9 +57,9 @@ export function TokenChartSection({
   const max = Math.max(...values)
 
   return (
-    <Card className="bg-background w-[700px] text-foreground p-4">
+    <Card className="bg-background w-full max-w-[700px] mx-auto text-foreground p-4">
       <CardHeader>
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
           <div>
             <CardTitle className="text-lg">{pair}</CardTitle>
             <div className="flex gap-2 items-center mt-1 text-muted-foreground text-xs">
@@ -87,13 +86,14 @@ export function TokenChartSection({
           <p className="text-sm text-muted-foreground">{range === '1W' ? 'Past week' : 'Last period'}</p>
         </div>
 
-        <div className="relative h-52 flex items-end justify-between gap-1 mb-4">
+        <div className="relative h-52 flex items-end gap-1 mb-4 overflow-x-auto scrollbar-hide px-1">
           {values.map((v, i) => (
-            <div key={i} className="flex flex-col items-center flex-1">
+            <div key={i} className="flex flex-col justify-end items-center flex-1 h-full">
               <div
-                className={cn('w-2 sm:w-3 rounded-md bg-pink-500 transition-all')}
+                className="w-[40px] rounded-xs bg-pink-500 transition-all"
                 style={{
                   height: `${(v / max) * 100}%`,
+                  minHeight: '4px',
                 }}
               ></div>
               <span className="text-xs text-muted-foreground mt-1">{labels[i]}</span>
@@ -108,7 +108,7 @@ export function TokenChartSection({
               variant={t === range ? 'default' : 'ghost'}
               size="sm"
               onClick={() => setRange(t)}
-              className="rounded-full px-3 text-xs"
+              className="rounded-full px-3 text-[0.65rem] sm:text-xs"
             >
               {t}
             </Button>

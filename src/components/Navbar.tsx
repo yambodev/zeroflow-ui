@@ -125,7 +125,7 @@ export function Navbar() {
         <DialogTrigger asChild>
           <Button
             variant="secondary"
-            className="absolute top-0 right-0 m-4 text-white cursor-pointer rounded-xl bg-violet-800
+            className="absolute top-0 right-0 m-4 text-pink-500 hover:text-pink-400 cursor-pointer rounded-xl bg-pink-500/20 hover:bg-pink-400/20
                       px-3 py-1 text-[10px] md:px-4 md:py-2 md:text-base"
           >
             Connect Wallet
