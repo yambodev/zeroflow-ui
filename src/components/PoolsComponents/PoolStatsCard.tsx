@@ -10,7 +10,7 @@ export function PoolStatsCard() {
   const usdcPercent = (usdc / total) * 100
 
   return (
-    <Card className="bg-muted text-foreground rounded-2xl p-6 py-8 w-full max-w-sm shadow-md space-y-2">
+    <Card className="bg-muted text-foreground rounded-2xl p-6 py-8 w-full shadow-md space-y-2">
       <CardHeader className="p-0">
         <h2 className="text-2xl font-semibold text-foreground">Stats</h2>
       </CardHeader>

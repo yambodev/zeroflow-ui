@@ -4,7 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { LuPackageSearch } from 'react-icons/lu'
-import { TbArrowForwardUp } from 'react-icons/tb'
+// import { TbArrowForwardUp } from 'react-icons/tb'
+import { HiMiniArrowsUpDown } from 'react-icons/hi2'
+import { IoArrowRedoSharp } from 'react-icons/io5'
 
 const timeRanges = ['1H', '1D', '1W', '1M', '1Y'] as const
 type TimeRange = (typeof timeRanges)[number]
@@ -57,24 +59,23 @@ export function TokenChartSection({
   const max = Math.max(...values)
 
   return (
-    <Card className="bg-background w-full max-w-[700px] mx-auto text-foreground p-4">
+    <Card className="bg-background w-full mx-auto text-foreground p-4">
       <CardHeader>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
-          <div>
-            <CardTitle className="text-lg">{pair}</CardTitle>
+          <div className="flex gap-3">
+            <CardTitle className="text-xl">{pair}</CardTitle>
             <div className="flex gap-2 items-center mt-1 text-muted-foreground text-xs">
-              <span>{version}</span>
-              <span>{fee}</span>
-              <span>↕</span>
+              <span className="bg-muted rounded-sm px-2 py-0.5">{version}</span>
+              <span className="bg-muted rounded-sm px-2 py-0.5">{fee}</span>
+              <HiMiniArrowsUpDown className="w-5 h-5" />
             </div>
           </div>
-
-          <div className="flex gap-2">
+          <div className="flex gap-8">
             <div className="cursor-pointer">
-              <LuPackageSearch />
+              <LuPackageSearch className="w-5 h-5" />
             </div>
             <div className="cursor-pointer">
-              <TbArrowForwardUp />
+              <IoArrowRedoSharp className="w-5 h-5" />
             </div>
           </div>
         </div>
