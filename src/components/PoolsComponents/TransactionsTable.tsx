@@ -70,7 +70,7 @@ const mockTransactions = [
   },
 ]
 
-export function TransactionsTable() {
+export default function TransactionsTable() {
   return (
     <div className="p-6 pb-2">
       <div className="overflow-x-auto rounded-2xl">

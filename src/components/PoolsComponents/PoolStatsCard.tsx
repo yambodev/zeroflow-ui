@@ -3,7 +3,7 @@
 import { Card, CardHeader, CardContent } from '@/components/ui/card'
 import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io'
 
-export function PoolStatsCard() {
+export default function PoolStatsCard() {
   const usdc = 29.4
   const eth = 51.3
   const total = usdc + eth

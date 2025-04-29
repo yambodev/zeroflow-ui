@@ -17,7 +17,7 @@ interface PoolData {
   tokenSlug: string
 }
 
-export function PoolsTable() {
+export default function PoolsTable() {
   const router = useRouter()
 
   const data: PoolData[] = []

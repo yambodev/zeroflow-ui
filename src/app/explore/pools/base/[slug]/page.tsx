@@ -1,12 +1,6 @@
 import { mockTokens } from '@/mock/tokens'
 import { notFound } from 'next/navigation'
-import { TokenChartSection } from '@/components/PoolsComponents/TokenChartSection'
-import { PoolStatsCard } from '@/components/PoolsComponents/PoolStatsCard'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { TransactionsTable } from '@/components/PoolsComponents/TransactionsTable'
-import { RiTokenSwapFill } from 'react-icons/ri'
-import { MdAdd } from 'react-icons/md'
+import { TokenChartSection, PoolRightSection, TransactionsTable } from '@/components/PoolsComponents'
 
 interface TokenPageProps {
   params: {
@@ -33,27 +27,7 @@ export default async function TokenPage({ params }: TokenPageProps) {
         <TransactionsTable />
       </div>
       {/*right Section */}
-      <div className="h-full flex flex-col w-[30%] gap-5">
-        <div className="flex gap-2 flex-row ">
-          <Button className="bg-pink-500/20 hover:bg-pink-400/20 text-lg w-[50%] text-pink-500 hover:text-pink-400 rounded-xl h-[40px]">
-            <RiTokenSwapFill />
-            <p>Swap</p>
-          </Button>
-          <Button className="bg-pink-500/20 hover:bg-pink-400/20 text-lg w-[50%] text-pink-500 hover:text-pink-400 rounded-xl h-[40px]">
-            <MdAdd />
-            <p>Add liquidity</p>
-          </Button>
-        </div>
-        <Card className="bg-muted text-foreground rounded-2xl p-6 w-full shadow-md space-y-2">
-          <CardContent className="space-y-6 p-0">
-            <div className="space-y-1">
-              <p className="text-sm font-semibold text-gray-400">Total APR</p>
-              <p className="text-3xl font-semibold">77.24%</p>
-            </div>
-          </CardContent>
-        </Card>
-        <PoolStatsCard />
-      </div>
+      <PoolRightSection />
     </div>
   )
 }

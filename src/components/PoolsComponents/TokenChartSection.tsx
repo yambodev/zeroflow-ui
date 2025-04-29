@@ -41,7 +41,7 @@ const dummyDates: Record<TimeRange, string[]> = {
   '1Y': ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
 }
 
-export function TokenChartSection({
+export default function TokenChartSection({
   pair,
   price,
   fee = '1%',

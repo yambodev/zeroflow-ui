@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import ConnectWalletButton from '../ui/connect-wallet-button'
 import { SwapBox } from './SwapBox'
 import { Card } from '../ui/card'
 import { HiArrowsUpDown } from 'react-icons/hi2'
@@ -19,7 +18,7 @@ export function LimitBox() {
   const [marketPrice, setMarketPrice] = useState(1742)
 
   return (
-    <div className="text-gray-400 rounded-lg w-full max-w-md">
+    <div className="text-gray-400 rounded-lg w-full max-w-md mb-1">
       {/* Reference price*/}
       <Card className="bg-secondary p-4 rounded-xl m-1 gap-2 relative">
         <div className="text-sm text-gray-400 flex flex-grow">
@@ -81,7 +80,7 @@ export function LimitBox() {
       />
 
       {/*Expiry Section*/}
-      <div className="bg-secondary p-4 rounded-xl mb-4">
+      <div className="bg-secondary p-4 rounded-xl">
         <p className="text-sm text-gray-400">Expiry</p>
         <div className="flex space-x-2 mt-2">
           {['1 day', '1 week', '1 month', '1 year'].map((duration) => (
@@ -96,7 +95,6 @@ export function LimitBox() {
           ))}
         </div>
       </div>
-      <ConnectWalletButton />
     </div>
   )
 }
