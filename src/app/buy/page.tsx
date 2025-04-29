@@ -1,9 +1,8 @@
-import { BuyBox, TradeContainer, TradeTabs } from '@/components/TradeComponents'
+import { BuyBox, TradeContainer } from '@/components/TradeComponents'
 
 export default function Buy() {
   return (
     <TradeContainer>
-      <TradeTabs />
       <BuyBox />
     </TradeContainer>
   )

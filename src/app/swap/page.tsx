@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { SwapBox, TradeContainer, TradeTabs } from '@/components/TradeComponents'
+import { SwapBox, TradeContainer } from '@/components/TradeComponents'
 
 import { Token, mockTokens } from '@/mock/tokens'
 
@@ -11,7 +11,6 @@ export default function Swap() {
 
   return (
     <TradeContainer>
-      <TradeTabs />
       <SwapBox
         initialSellToken={sellToken}
         initialBuyToken={buyToken}

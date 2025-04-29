@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { RiTokenSwapFill } from 'react-icons/ri'
 import { MdAdd } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
+import { TradeWidget } from '../TradeComponents/TradeWidget'
 
 const PoolRightSection = () => {
   const [openSwap, setOpenSwap] = useState(false)
@@ -37,7 +38,7 @@ const PoolRightSection = () => {
         </Button>
       </div>
       {openSwap ? (
-        <></>
+        <TradeWidget />
       ) : (
         <Card className="bg-muted text-foreground rounded-2xl p-6 w-full shadow-md space-y-2">
           <CardContent className="space-y-6 p-0">
