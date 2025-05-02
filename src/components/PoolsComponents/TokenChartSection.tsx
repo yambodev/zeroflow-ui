@@ -7,6 +7,7 @@ import { LuPackageSearch } from 'react-icons/lu'
 // import { TbArrowForwardUp } from 'react-icons/tb'
 import { HiMiniArrowsUpDown } from 'react-icons/hi2'
 import { IoArrowRedoSharp } from 'react-icons/io5'
+import { Token } from '@/mock/tokens'
 
 const timeRanges = ['1H', '1D', '1W', '1M', '1Y'] as const
 type TimeRange = (typeof timeRanges)[number]
@@ -42,20 +43,23 @@ const dummyDates: Record<TimeRange, string[]> = {
 }
 
 export default function TokenChartSection({
-  pair,
+  baseToken,
+  quoteToken,
   price,
   fee = '1%',
   version = 'v3',
+  onSwap,
 }: {
-  pair: string
-  price: number | string
+  baseToken: Token
+  quoteToken: Token
+  price?: number
   fee?: string
   version?: string
+  onSwap: () => void
 }) {
   const [range, setRange] = useState<TimeRange>('1W')
   const values = dummyData[range]
   const labels = dummyDates[range]
-
   const max = Math.max(...values)
 
   return (
@@ -63,45 +67,34 @@ export default function TokenChartSection({
       <CardHeader>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
           <div className="flex gap-3">
-            <CardTitle className="text-xl">{pair}</CardTitle>
+            <CardTitle className="text-xl">
+              {baseToken.slug}/{quoteToken.slug}
+            </CardTitle>
             <div className="flex gap-2 items-center mt-1 text-muted-foreground text-xs">
               <span className="bg-muted rounded-sm px-2 py-0.5">{version}</span>
               <span className="bg-muted rounded-sm px-2 py-0.5">{fee}</span>
-              <HiMiniArrowsUpDown className="w-5 h-5" />
+              <HiMiniArrowsUpDown className="w-5 h-5 cursor-pointer" onClick={onSwap} />
             </div>
           </div>
-          <div className="flex gap-8">
-            <div className="cursor-pointer">
-              <LuPackageSearch className="w-5 h-5" />
-            </div>
-            <div className="cursor-pointer">
-              <IoArrowRedoSharp className="w-5 h-5" />
-            </div>
-          </div>
+          {/* íconos */}
         </div>
       </CardHeader>
-
       <CardContent>
         <div className="mb-4">
-          <p className="text-3xl font-bold">${price}</p>
+          <p className="text-3xl font-bold">${price ?? baseToken.price.toFixed(2)}</p>
           <p className="text-sm text-muted-foreground">{range === '1W' ? 'Past week' : 'Last period'}</p>
         </div>
-
         <div className="relative h-52 flex items-end gap-1 mb-4 overflow-x-auto scrollbar-hide px-1">
           {values.map((v, i) => (
             <div key={i} className="flex flex-col justify-end items-center flex-1 h-full">
               <div
                 className="w-[40px] rounded-xs bg-pink-500 transition-all"
-                style={{
-                  height: `${(v / max) * 100}%`,
-                  minHeight: '4px',
-                }}
+                style={{ height: `${(v / max) * 100}%`, minHeight: '4px' }}
               ></div>
               <span className="text-xs text-muted-foreground mt-1">{labels[i]}</span>
             </div>
           ))}
         </div>
-
         <div className="flex justify-start gap-2">
           {timeRanges.map((t) => (
             <Button

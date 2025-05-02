@@ -8,8 +8,9 @@ import { RiTokenSwapFill } from 'react-icons/ri'
 import { MdAdd } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
 import { TradeWidget } from '../TradeComponents/TradeWidget'
+import { Token } from '@/mock/tokens'
 
-const PoolRightSection = () => {
+const PoolRightSection = ({ baseToken, quoteToken }: { baseToken: Token; quoteToken: Token }) => {
   const [openSwap, setOpenSwap] = useState(false)
 
   return (
@@ -37,19 +38,21 @@ const PoolRightSection = () => {
           <p>Add liquidity</p>
         </Button>
       </div>
+
       {openSwap ? (
-        <TradeWidget />
+        <TradeWidget base={baseToken} quote={quoteToken} />
       ) : (
         <Card className="bg-muted text-foreground rounded-2xl p-6 w-full shadow-md space-y-2">
           <CardContent className="space-y-6 p-0">
             <div className="space-y-1">
               <p className="text-sm font-semibold text-gray-400">Total APR</p>
-              <p className="text-3xl font-semibold">77.24%</p>
+              <p className="text-3xl font-semibold">--</p>
             </div>
           </CardContent>
         </Card>
       )}
-      <PoolStatsCard />
+
+      <PoolStatsCard base={baseToken} quote={quoteToken} />
     </div>
   )
 }

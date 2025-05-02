@@ -6,7 +6,12 @@ import { TradeContainer } from './TradeContainer'
 import { SwapBox, LimitBox, SendBox, BuyBox } from './index'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { motion } from 'framer-motion'
-import { Token, mockTokens } from '@/mock/tokens'
+import { Token } from '@/mock/tokens'
+
+type TradeWidgetProps = {
+  base: Token
+  quote: Token
+}
 
 type TabType = 'swap' | 'limit' | 'send' | 'buy'
 
@@ -17,10 +22,10 @@ const TABS: { label: string; type: TabType }[] = [
   { label: 'Buy', type: 'buy' },
 ]
 
-export const TradeWidget: React.FC = () => {
+export const TradeWidget: React.FC<TradeWidgetProps> = ({ base, quote }) => {
   const [activeTab, setActiveTab] = useState<TabType>('swap')
-  const [sellToken, setSellToken] = useState<Token | null>(mockTokens[0])
-  const [buyToken, setBuyToken] = useState<Token | null>(null)
+  const [sellToken, setSellToken] = useState<Token | null>(base)
+  const [buyToken, setBuyToken] = useState<Token | null>(quote)
 
   const renderActiveBox = () => {
     switch (activeTab) {

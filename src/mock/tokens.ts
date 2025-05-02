@@ -1,4 +1,5 @@
 export type PoolMeta = {
+  poolId: string
   pairWith: string
   version: string
   fee: string
@@ -23,6 +24,7 @@ export const mockTokens: Token[] = [
     price: 1.0,
     pools: [
       {
+        poolId: 'eth-usdc-v3',
         pairWith: 'ETH',
         version: 'v3',
         fee: '0.05%',
@@ -33,6 +35,7 @@ export const mockTokens: Token[] = [
         ratio: '1.27',
       },
       {
+        poolId: 'wbtc-usdc-v3',
         pairWith: 'WBTC',
         version: 'v3',
         fee: '0.3%',
@@ -43,6 +46,7 @@ export const mockTokens: Token[] = [
         ratio: '0.16',
       },
       {
+        poolId: 'dai-usdc-v3',
         pairWith: 'DAI',
         version: 'v3',
         fee: '0.3%',
@@ -60,6 +64,7 @@ export const mockTokens: Token[] = [
     price: 3450.25,
     pools: [
       {
+        poolId: 'eth-usdc-v3',
         pairWith: 'USDC',
         version: 'v3',
         fee: '0.05%',
@@ -70,6 +75,7 @@ export const mockTokens: Token[] = [
         ratio: '1.27',
       },
       {
+        poolId: 'eth-usdt-v3',
         pairWith: 'USDT',
         version: 'v3',
         fee: '0.3%',
@@ -80,6 +86,7 @@ export const mockTokens: Token[] = [
         ratio: '0.11',
       },
       {
+        poolId: 'eth-wbtc-v3',
         pairWith: 'WBTC',
         version: 'v3',
         fee: '0.3%',
@@ -97,6 +104,7 @@ export const mockTokens: Token[] = [
     price: 1.0,
     pools: [
       {
+        poolId: 'eth-usdt-v3',
         pairWith: 'ETH',
         version: 'v3',
         fee: '0.3%',
@@ -107,6 +115,7 @@ export const mockTokens: Token[] = [
         ratio: '0.11',
       },
       {
+        poolId: 'usdt-wbtc-v3',
         pairWith: 'WBTC',
         version: 'v3',
         fee: '0.3%',
@@ -124,6 +133,7 @@ export const mockTokens: Token[] = [
     price: 65250.75,
     pools: [
       {
+        poolId: 'wbtc-usdc-v3',
         pairWith: 'USDC',
         version: 'v3',
         fee: '0.3%',
@@ -134,6 +144,7 @@ export const mockTokens: Token[] = [
         ratio: '0.16',
       },
       {
+        poolId: 'eth-wbtc-v3',
         pairWith: 'ETH',
         version: 'v3',
         fee: '0.3%',
@@ -144,6 +155,7 @@ export const mockTokens: Token[] = [
         ratio: '0.16',
       },
       {
+        poolId: 'usdt-wbtc-v3',
         pairWith: 'USDT',
         version: 'v3',
         fee: '0.3%',
@@ -154,6 +166,7 @@ export const mockTokens: Token[] = [
         ratio: '0.16',
       },
       {
+        poolId: 'cbBTC-wbtc-v3',
         pairWith: 'cbBTC',
         version: 'v3',
         fee: '0.3%',

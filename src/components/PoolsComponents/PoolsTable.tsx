@@ -14,7 +14,7 @@ interface PoolData {
   volume1d: string
   volume30d: string
   ratio: string
-  tokenSlug: string
+  poolId: string
 }
 
 export default function PoolsTable() {
@@ -23,7 +23,7 @@ export default function PoolsTable() {
   const data: PoolData[] = []
 
   mockTokens.forEach((token) => {
-    token.pools?.forEach((pool) => {
+    token.pools?.forEach((pool, index) => {
       data.push({
         id: data.length + 1,
         pair: `${token.slug}/${pool.pairWith}`,
@@ -34,13 +34,13 @@ export default function PoolsTable() {
         volume1d: pool.volume1d,
         volume30d: pool.volume30d,
         ratio: pool.ratio,
-        tokenSlug: token.slug,
+        poolId: `${token.slug}-${pool.pairWith}-${index}`,
       })
     })
   })
 
-  const handleRowClick = (slug: string) => {
-    router.push(`/explore/pools/base/${slug}`)
+  const handleRowClick = (poolId: string) => {
+    router.push(`/explore/pools/base/${poolId}`)
   }
 
   return (
@@ -64,7 +64,7 @@ export default function PoolsTable() {
             <TableRow
               key={pool.id}
               className="cursor-pointer hover:bg-muted transition"
-              onClick={() => handleRowClick(pool.tokenSlug)}
+              onClick={() => handleRowClick(pool.poolId)}
             >
               <TableCell className="font-medium">{pool.id}</TableCell>
               <TableCell className="font-medium">{pool.pair}</TableCell>
