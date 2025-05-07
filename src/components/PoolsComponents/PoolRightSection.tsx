@@ -9,6 +9,7 @@ import { MdAdd } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
 import { TradeWidget } from '../TradeComponents/TradeWidget'
 import { Token } from '@/mock/tokens'
+import { PoolLinksCard } from './PoolLinksCard'
 
 const PoolRightSection = ({ baseToken, quoteToken }: { baseToken: Token; quoteToken: Token }) => {
   const [openSwap, setOpenSwap] = useState(false)
@@ -53,6 +54,8 @@ const PoolRightSection = ({ baseToken, quoteToken }: { baseToken: Token; quoteTo
       )}
 
       <PoolStatsCard base={baseToken} quote={quoteToken} />
+
+      <PoolLinksCard baseToken={baseToken} quoteToken={quoteToken} />
     </div>
   )
 }

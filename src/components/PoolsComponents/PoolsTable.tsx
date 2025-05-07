@@ -22,8 +22,13 @@ export default function PoolsTable() {
 
   const data: PoolData[] = []
 
+  const seenPoolIds = new Set<string>()
+
   mockTokens.forEach((token) => {
-    token.pools?.forEach((pool, index) => {
+    token.pools?.forEach((pool) => {
+      if (seenPoolIds.has(pool.poolId)) return
+      seenPoolIds.add(pool.poolId)
+
       data.push({
         id: data.length + 1,
         pair: `${token.slug}/${pool.pairWith}`,
@@ -34,7 +39,7 @@ export default function PoolsTable() {
         volume1d: pool.volume1d,
         volume30d: pool.volume30d,
         ratio: pool.ratio,
-        poolId: `${token.slug}-${pool.pairWith}-${index}`,
+        poolId: pool.poolId,
       })
     })
   })

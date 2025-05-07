@@ -128,6 +128,12 @@ export const mockTokens: Token[] = [
     ],
   },
   {
+    name: 'Dai Stablecoin',
+    slug: 'DAI',
+    price: 1.0,
+  },
+
+  {
     name: 'Wrapped Bitcoin',
     slug: 'WBTC',
     price: 65250.75,
