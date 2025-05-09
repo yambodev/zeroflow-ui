@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import ConnectWalletButton from '../ui/connect-wallet-button'
 import { Token } from '@/mock/tokens'
 import { SelectTokenButton } from './SelectTokenButton'
 import AmountInput from './AmountInput'
@@ -57,8 +56,6 @@ export function BuyBox({ currency = '$' }: BuyBoxProps) {
           </Button>
         ))}
       </div>
-
-      <ConnectWalletButton />
     </Card>
   )
 }
