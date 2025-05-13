@@ -3,10 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { LuPackageSearch } from 'react-icons/lu'
-// import { TbArrowForwardUp } from 'react-icons/tb'
 import { HiMiniArrowsUpDown } from 'react-icons/hi2'
-import { IoArrowRedoSharp } from 'react-icons/io5'
 import { Token } from '@/mock/tokens'
 
 const timeRanges = ['1H', '1D', '1W', '1M', '1Y'] as const

@@ -1,4 +1,4 @@
-import { PoolsTable } from '@/components/PoolsComponents/PoolsTable'
+import { PoolsTable } from '@/components/PoolsComponents'
 
 export default function Pool() {
   return (
