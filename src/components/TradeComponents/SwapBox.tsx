@@ -78,7 +78,7 @@ export function SwapBox({
   }, [buyValue, initialSellToken, initialBuyToken, selected])
 
   return (
-    <div className="text-gray-300 rounded-xl space-y-4 w-full max-w-md relative">
+    <div className="text-gray-300 rounded-xl space-y-4 w-full max-w-md relative mb-1">
       {/* Sell Card */}
       <SwapCard
         label="Sell"

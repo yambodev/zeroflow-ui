@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { IoSwapVerticalSharp } from 'react-icons/io5'
-import ConnectWalletButton from '../ui/connect-wallet-button'
 import { Token, mockTokens } from '@/mock/tokens'
 import { SelectTokenButton } from './SelectTokenButton'
 import { toFixedIfNecessary } from '@/utils/numberUtils'
@@ -63,10 +62,9 @@ export function SendBox() {
           placeholder="Wallet address"
           value={walletAddress}
           onChange={(e) => setWalletAddress(e.target.value)}
-          className="bg-gray-900 border-none text-white placeholder-gray-500"
+          className="bg-gray-900 border-none text-white placeholder-gray-500 rounded-md pl-3"
         />
       </div>
-      <ConnectWalletButton />
     </Card>
   )
 }
