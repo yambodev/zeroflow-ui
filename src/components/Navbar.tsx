@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { NavigationMenu, NavigationMenuItem, navigationMenuTriggerStyle } from './ui/navigation-menu'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu'
 import { Button } from './ui/button'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { AiOutlineSwap, AiOutlineBarChart, AiOutlineSend, AiOutlineCreditCard } from 'react-icons/ai'
 import { ConnectWalletButton } from './ConnectWalletButton'
 
