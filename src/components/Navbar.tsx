@@ -4,6 +4,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Button } from './ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
 import { AiOutlineSwap, AiOutlineBarChart, AiOutlineSend, AiOutlineCreditCard } from 'react-icons/ai'
+import { ConnectWalletButton } from './ConnectWalletButton'
 
 export function Navbar() {
   return (
@@ -121,27 +122,7 @@ export function Navbar() {
           </NavigationMenu>
         </div>
       </header>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button
-            variant="secondary"
-            className="absolute top-0 right-0 m-4 text-pink-500 hover:text-pink-400 cursor-pointer rounded-xl bg-pink-500/20 hover:bg-pink-400/20
-                      px-3 py-1 text-[10px] md:px-4 md:py-2 md:text-base"
-          >
-            Connect Wallet
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="bg-black border-gray-800 sm:max-w-[425px]">
-          <DialogHeader className="relative">
-            <DialogTitle className="text-white text-center">Connect Wallet</DialogTitle>
-          </DialogHeader>
-          <div className="flex flex-col items-center justify-center p-4">
-            <Button variant="outline" className="w-full cursor-pointer text-black border-gray-700 hover:bg-gray-800">
-              WalletConnect
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <ConnectWalletButton />
     </>
   )
 }
