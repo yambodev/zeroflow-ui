@@ -57,7 +57,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-900 text-white p-8">
-      <h1 className="text-4xl mt-[200px] font-bold mb-8 text-white">Swap with no fees.</h1>
+      <h1 className="text-4xl mt-[150px] font-bold mb-8 text-white">The DEX of the future.</h1>
       <Card ref={cardRef} className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-center">
@@ -98,9 +98,8 @@ export default function Home() {
       <p className="mt-8 text-center text-white">
         The first zero-gas DEX with no bridging. Buy and sell crypto on Ethereum and many other chains.
       </p>
-      <p className="mt-4 text-center text-gray-400">Scroll to learn more</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-40">
         <Card className="p-6 bg-gray-800 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold text-white">Keep the security of your chain.</h3>
           <p className="text-white">

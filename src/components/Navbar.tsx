@@ -118,6 +118,14 @@ export function Navbar() {
                 </Button>
               </Link>
             </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <Link href="/synthcrafting">
+                <Button variant="ghost" className={navigationMenuTriggerStyle()}>
+                  SynthCrafting
+                </Button>
+              </Link>
+            </NavigationMenuItem>
           </NavigationMenu>
         </div>
       </header>
