@@ -26,8 +26,6 @@ export default function SynthCrafting() {
         if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
           const x = e.clientX - rect.left
           const y = e.clientY - rect.top
-          const centerX = rect.width / 2
-          const centerY = rect.height / 2
           let xRotation = (y / rect.height - 0.5) * 20
           let yRotation = (x / rect.width - 0.5) * 20
           xRotation = Math.max(-5, Math.min(5, xRotation))
