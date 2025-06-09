@@ -3,8 +3,8 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 
-export default async function ProjectPage(props: { params: { projectId: string } }) {
-  const projectId = props.params.projectId
+export default async function ProjectPage({ params }: any) {
+  const projectId = params.projectId
   const project = [...ownedProjects, ...availableProjects].find((p) => p.id === projectId)
 
   if (!project) {
