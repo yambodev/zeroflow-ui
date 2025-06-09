@@ -3,9 +3,9 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 
-export default async function ProjectPage({ params }: { params: { projectId: string } }) {
-  // params is now awaited by Next.js app router
-  const project = [...ownedProjects, ...availableProjects].find((p) => p.id === params.projectId)
+export default async function ProjectPage(props: { params: { projectId: string } }) {
+  const projectId = props.params.projectId
+  const project = [...ownedProjects, ...availableProjects].find((p) => p.id === projectId)
 
   if (!project) {
     notFound()
