@@ -6,13 +6,205 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ownedProjects, availableProjects } from '@/data/projects'
 import Link from 'next/link'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import React from 'react'
 
 function extractProjectIds(text: string): string[] {
   // Match lines like ID: xyzxyz or ID:xyzxyz
   return (text.match(/ID:\s*([\w-]+)/g) || []).map((line) => line.replace(/ID:\s*/, '').trim())
+}
+
+const PLACEHOLDER_IMG = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRESeXCnFfppy9XoJCSWulNyG8YUjjCWd1ULA&s'
+
+function KickstartForm({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [step, setStep] = useState(0)
+  const [form, setForm] = useState({
+    name: '',
+    description: '',
+    goal: '',
+    awards: [
+      { title: '', description: '', coin: false, min: '' },
+      { title: '', description: '', coin: false, min: '' },
+      { title: '', description: '', coin: false, min: '' },
+    ],
+    coinName: '',
+    image: PLACEHOLDER_IMG,
+  })
+  const [success, setSuccess] = useState(false)
+
+  const handleAwardChange = (idx: number, field: string, value: string | boolean) => {
+    setForm((f) => {
+      const awards = [...f.awards]
+      awards[idx] = { ...awards[idx], [field]: value }
+      return { ...f, awards }
+    })
+  }
+
+  const handleNext = useCallback(() => {
+    if (step === 5) {
+      setSuccess(true)
+    } else {
+      setStep((s) => s + 1)
+    }
+  }, [step])
+  const handlePrev = useCallback(() => setStep((s) => Math.max(0, s - 1)), [])
+
+  if (!open) return null
+  return (
+    <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
+      <div className="relative w-full max-w-xl bg-gray-900 rounded-2xl shadow-2xl p-8 flex flex-col items-center border-2 border-pink-400">
+        {!success ? (
+          <>
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 rounded hover:bg-pink-500/20"
+              aria-label="Close form"
+            >
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path d="M6 6l12 12M18 6l-12 12" stroke="#f472b6" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+            <div className="w-full flex flex-col items-center">
+              <h2 className="text-2xl font-bold mb-2 text-pink-400">Kickstart Your Project</h2>
+              <div className="w-full mt-4">
+                {step === 0 && (
+                  <div>
+                    <label className="block mb-2 text-lg font-semibold">Project Name</label>
+                    <input
+                      className="w-full px-4 py-3 rounded-xl bg-gray-800 text-white border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 placeholder-gray-400 text-lg shadow"
+                      value={form.name}
+                      onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                      placeholder="Enter your project's name"
+                    />
+                  </div>
+                )}
+                {step === 1 && (
+                  <div>
+                    <label className="block mb-2 text-lg font-semibold">Project Description</label>
+                    <textarea
+                      className="w-full px-4 py-3 rounded-xl bg-gray-800 text-white border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 placeholder-gray-400 text-lg shadow min-h-[100px]"
+                      value={form.description}
+                      onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+                      placeholder="Describe your project"
+                    />
+                  </div>
+                )}
+                {step === 2 && (
+                  <div>
+                    <label className="block mb-2 text-lg font-semibold">Funding Goal (in $WIRE)</label>
+                    <input
+                      type="number"
+                      className="w-full px-4 py-3 rounded-xl bg-gray-800 text-white border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 placeholder-gray-400 text-lg shadow"
+                      value={form.goal}
+                      onChange={(e) => setForm((f) => ({ ...f, goal: e.target.value }))}
+                      placeholder="e.g. 1000"
+                      min={0}
+                    />
+                  </div>
+                )}
+                {step === 3 && (
+                  <div>
+                    <label className="block mb-2 text-lg font-semibold">Award Tiers</label>
+                    <div className="flex flex-col gap-4">
+                      {form.awards.map((award, idx) => (
+                        <div key={idx} className="border border-pink-400 rounded-xl p-4 bg-gray-800">
+                          <div className="mb-2">
+                            <input
+                              className="w-full px-3 py-2 rounded bg-gray-900 text-white border border-pink-300 mb-2"
+                              value={award.title}
+                              onChange={(e) => handleAwardChange(idx, 'title', e.target.value)}
+                              placeholder={`Tier ${idx + 1} Title`}
+                            />
+                            <textarea
+                              className="w-full px-3 py-2 rounded bg-gray-900 text-white border border-pink-300 mb-2 min-h-[60px]"
+                              value={award.description}
+                              onChange={(e) => handleAwardChange(idx, 'description', e.target.value)}
+                              placeholder="Description"
+                            />
+                            <div className="flex items-center gap-2 mb-2">
+                              <input
+                                type="checkbox"
+                                id={`coin-${idx}`}
+                                checked={award.coin}
+                                onChange={(e) => handleAwardChange(idx, 'coin', e.target.checked)}
+                              />
+                              <label htmlFor={`coin-${idx}`} className="text-pink-300">
+                                Include custom coin in this tier
+                              </label>
+                            </div>
+                            <input
+                              type="number"
+                              className="w-full px-3 py-2 rounded bg-gray-900 text-white border border-pink-300"
+                              value={award.min}
+                              onChange={(e) => handleAwardChange(idx, 'min', e.target.value)}
+                              placeholder="Minimum backing in $WIRE"
+                              min={0}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {step === 4 && (
+                  <div>
+                    <label className="block mb-2 text-lg font-semibold">Name Your Coin</label>
+                    <input
+                      className="w-full px-4 py-3 rounded-xl bg-gray-800 text-white border border-pink-400 focus:outline-none focus:ring-2 focus:ring-pink-500 placeholder-gray-400 text-lg shadow"
+                      value={form.coinName}
+                      onChange={(e) => setForm((f) => ({ ...f, coinName: e.target.value }))}
+                      placeholder="e.g. SynthToken"
+                    />
+                  </div>
+                )}
+                {step === 5 && (
+                  <div className="flex flex-col items-center">
+                    <label className="block mb-2 text-lg font-semibold">Project Image</label>
+                    <img
+                      src={PLACEHOLDER_IMG}
+                      alt="Project"
+                      className="w-40 h-40 object-cover rounded-xl border-2 border-pink-400 mb-4"
+                    />
+                    <div className="text-gray-400 text-sm">(A placeholder image will be used for now)</div>
+                  </div>
+                )}
+              </div>
+              <div className="flex w-full justify-between mt-8">
+                <button
+                  onClick={handlePrev}
+                  disabled={step === 0}
+                  className="px-6 py-3 rounded-xl bg-gray-700 text-white font-bold text-lg shadow hover:bg-gray-600 transition disabled:opacity-50"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="px-6 py-3 rounded-xl bg-pink-500 text-white font-bold text-lg shadow hover:bg-pink-400 transition"
+                >
+                  {step === 5 ? 'Submit' : 'Next'}
+                </button>
+              </div>
+              <div className="mt-4 text-center text-gray-400">Step {step + 1} of 6</div>
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-col items-center justify-center min-h-[300px]">
+            <h2 className="text-2xl font-bold text-pink-400 mb-4">Project Submitted!</h2>
+            <p className="text-lg text-gray-200 mb-6 text-center">
+              Your project details have been collected. Thank you for kickstarting your SynthCrafter journey!
+            </p>
+            <button
+              onClick={onClose}
+              className="px-8 py-3 rounded-xl bg-pink-500 text-white font-bold text-lg shadow hover:bg-pink-400 transition"
+            >
+              Close
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
 
 export default function SynthCrafting() {
@@ -28,6 +220,7 @@ export default function SynthCrafting() {
   const gridRef = useRef<HTMLDivElement>(null)
   const chatPaneRef = useRef<HTMLDivElement>(null)
   const chatInputRef = useRef<HTMLInputElement>(null)
+  const [kickstartOpen, setKickstartOpen] = useState(false)
 
   useEffect(() => {
     setSessionId(uuidv4() + '-' + uuidv4())
@@ -170,6 +363,7 @@ export default function SynthCrafting() {
     setActiveProjectIds(null)
   }
 
+  // Add floating animation style
   return (
     <div className="flex flex-col items-center min-h-screen bg-gradient-to-b from-black to-gray-900 text-white p-8">
       {/* Discover New Projects Section */}
@@ -343,6 +537,30 @@ export default function SynthCrafting() {
           </Card>
         ))}
       </div>
+      {/* Fixed Kickstart Button */}
+      <button
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-40 px-8 py-4 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold text-xl shadow-lg border-2 border-pink-400 hover:scale-105 transition-all animate-float cursor-pointer"
+        onClick={() => setKickstartOpen(true)}
+      >
+        Kickstart Your Project
+      </button>
+      <style jsx global>{`
+        @keyframes float {
+          0% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-5px);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+        .animate-float {
+          animation: float 2.5s ease-in-out infinite;
+        }
+      `}</style>
+      <KickstartForm open={kickstartOpen} onClose={() => setKickstartOpen(false)} />
     </div>
   )
 }

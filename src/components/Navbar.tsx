@@ -125,7 +125,7 @@ export function Navbar() {
                   variant="ghost"
                   className={`${navigationMenuTriggerStyle()} bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 text-white font-bold shadow-lg border-2 border-pink-400 hover:from-pink-400 hover:to-blue-400 hover:scale-105 transition-transform duration-200`}
                 >
-                  Kickstart Your Project
+                  Discover New Projects
                 </Button>
               </Link>
             </NavigationMenuItem>
