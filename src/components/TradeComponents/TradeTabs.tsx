@@ -16,7 +16,7 @@ export function TradeTabs() {
   ]
 
   return (
-    <Tabs value={pathname} className="w-fit flex justify-center mb-3">
+    <Tabs value={pathname || undefined} className="w-fit flex justify-center mb-3">
       <TabsList className="relative flex space-x-2 bg-black p-1 rounded-full">
         {tabs.map((tab) => {
           const isActive = pathname === tab.path

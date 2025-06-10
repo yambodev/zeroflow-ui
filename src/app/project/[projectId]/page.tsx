@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function ProjectPage({ params }: any) {
   const projectId = params.projectId
   const project = [...ownedProjects, ...availableProjects].find((p) => p.id === projectId)

@@ -8,7 +8,8 @@ import { useParams } from 'next/navigation'
 
 export default function TokenPage() {
   // 1) first hook
-  const { poolId } = useParams()
+  const params = useParams() as { poolId: string }
+  const { poolId } = params
 
   // 2) compute initial values *before* any hook calls below
   const initial = (() => {
