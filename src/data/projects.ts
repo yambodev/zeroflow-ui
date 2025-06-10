@@ -14,17 +14,17 @@ export const ownedProjects = [
     awards: [
       {
         name: 'Digital Poster',
-        description: 'Exclusive high-res movie poster for backers.',
+        description: 'Exclusive high-res movie poster for backers. Includes 10 $DREAM Tokens.',
         minAmount: 10,
       },
       {
         name: 'Behind the Scenes Access',
-        description: 'Get access to making-of content and director commentary.',
+        description: 'Get access to making-of content and director commentary. Includes 25 $DREAM Tokens.',
         minAmount: 50,
       },
       {
         name: 'Executive Producer Credit',
-        description: 'Your name in the credits as an Executive Producer.',
+        description: 'Your name in the credits as an Executive Producer. Includes 100 $DREAM Tokens.',
         minAmount: 200,
       },
     ],
@@ -44,17 +44,17 @@ export const ownedProjects = [
     awards: [
       {
         name: 'Early Access',
-        description: 'Get early access to UltiBot before public release.',
+        description: 'Get early access to UltiBot before public release. Includes 10 $TRADE Tokens.',
         minAmount: 25,
       },
       {
         name: 'Premium Trading Signals',
-        description: 'Receive premium trading signals for 3 months.',
+        description: 'Receive premium trading signals for 3 months. Includes 50 $TRADE Tokens.',
         minAmount: 100,
       },
       {
         name: 'Lifetime License',
-        description: 'Lifetime access to all UltiBot features.',
+        description: 'Lifetime access to all UltiBot features. Includes 200 $TRADE Tokens.',
         minAmount: 500,
       },
     ],
@@ -74,17 +74,17 @@ export const ownedProjects = [
     awards: [
       {
         name: 'Beta Tester',
-        description: 'Get access to the closed beta and help shape the game.',
+        description: 'Get access to the closed beta and help shape the game. Includes 5 $QUEST Tokens.',
         minAmount: 15,
       },
       {
         name: 'In-Game Skin',
-        description: 'Receive an exclusive in-game character skin.',
+        description: 'Receive an exclusive in-game character skin. Includes 20 $QUEST Tokens.',
         minAmount: 60,
       },
       {
         name: 'Name a Puzzle',
-        description: 'Name a puzzle that will appear in the game.',
+        description: 'Name a puzzle that will appear in the game. Includes 75 $QUEST Tokens.',
         minAmount: 150,
       },
     ],
@@ -103,17 +103,17 @@ export const availableProjects = [
     awards: [
       {
         name: 'Founders Badge',
-        description: 'Special badge for early backers in the virtual world.',
+        description: 'Special badge for early backers in the virtual world. Includes 10 $SYNTH Tokens.',
         minAmount: 20,
       },
       {
         name: 'Custom Avatar',
-        description: 'Design your own avatar for use in SynthVerse.',
+        description: 'Design your own avatar for use in SynthVerse. Includes 50 $SYNTH Tokens.',
         minAmount: 100,
       },
       {
         name: 'Name a District',
-        description: 'Name a district in the virtual city.',
+        description: 'Name a district in the virtual city. Includes 150 $SYNTH Tokens.',
         minAmount: 300,
       },
     ],
@@ -129,17 +129,17 @@ export const availableProjects = [
     awards: [
       {
         name: 'Digital Album',
-        description: 'Download the full album in high quality.',
+        description: 'Download the full album in high quality. Includes 5 $WAVE Tokens.',
         minAmount: 10,
       },
       {
         name: 'Signed Poster',
-        description: 'A digital poster signed by SynthWave.',
+        description: 'A digital poster signed by SynthWave. Includes 20 $WAVE Tokens.',
         minAmount: 40,
       },
       {
         name: 'VIP Listening Party',
-        description: 'Invitation to a virtual VIP listening party.',
+        description: 'Invitation to a virtual VIP listening party. Includes 60 $WAVE Tokens.',
         minAmount: 120,
       },
     ],
@@ -156,17 +156,17 @@ export const availableProjects = [
     awards: [
       {
         name: 'Priority Access',
-        description: 'Be among the first to use WaitLineBot.',
+        description: 'Be among the first to use WaitLineBot. Includes 2 $LINE Tokens.',
         minAmount: 5,
       },
       {
         name: 'Custom Hold Music',
-        description: 'Choose your own hold music for the bot.',
+        description: 'Choose your own hold music for the bot. Includes 10 $LINE Tokens.',
         minAmount: 30,
       },
       {
         name: 'Lifetime Subscription',
-        description: 'Never pay for WaitLineBot again.',
+        description: 'Never pay for WaitLineBot again. Includes 50 $LINE Tokens.',
         minAmount: 100,
       },
     ],
