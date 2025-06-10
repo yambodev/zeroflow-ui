@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import Link from 'next/link'
 
 export default function Home() {
   const [sellValue, setSellValue] = useState('')
@@ -57,47 +58,48 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-900 text-white p-8">
-      <h1 className="text-4xl mt-[150px] font-bold mb-8 text-white">The DEX of the future.</h1>
-      <Card ref={cardRef} className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
-        <div className="flex flex-col gap-4">
-          <div className="flex justify-between items-center">
-            <p className="text-lg text-white">Sell</p>
-            <Select onValueChange={handleTokenChange}>
-              <SelectTrigger className="w-24">
-                <SelectValue placeholder="Token" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="eth">ETH</SelectItem>
-                <SelectItem value="btc">BTC</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <Input
-            value={sellValue}
-            onChange={handleSellInputChange}
-            placeholder="$0"
-            className="bg-gray-700 text-white"
-          />
-          {sellValue && (
-            <p className="text-sm text-white">
-              {coinAmount.toFixed(5)} {selectedToken.toUpperCase()}
-            </p>
-          )}
-          <div className="flex justify-between items-center">
-            <p className="text-lg text-white">Buy</p>
-            <Button variant="default" className="bg-pink-500">
-              Select Token
+      <h1 className="text-4xl mt-[150px] font-bold mb-8 text-white">The future of Web3 awaits.</h1>
+      <Link href="/swap" passHref>
+        <Card ref={cardRef} className="w-[400px] p-6 bg-gray-800 rounded-lg shadow-lg">
+          <div className="flex flex-col gap-4">
+            <div className="flex justify-between items-center">
+              <p className="text-lg text-white">Sell</p>
+              <Select onValueChange={handleTokenChange} disabled>
+                <SelectTrigger className="w-24">
+                  <SelectValue placeholder="Token" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="eth">ETH</SelectItem>
+                  <SelectItem value="btc">BTC</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Input
+              value={sellValue}
+              onChange={handleSellInputChange}
+              placeholder="$0"
+              className="bg-gray-700 text-white cursor-pointer"
+              readOnly
+            />
+            {sellValue && (
+              <p className="text-sm text-white">
+                {coinAmount.toFixed(5)} {selectedToken.toUpperCase()}
+              </p>
+            )}
+            <div className="flex justify-between items-center">
+              <p className="text-lg text-white">Buy</p>
+              <Button variant="default" className="bg-pink-500 text-white hover:bg-pink-500 hover:text-white">
+                Select Token
+              </Button>
+            </div>
+            <Input placeholder="0" className="bg-gray-700 text-white cursor-pointer" readOnly />
+            <Button variant="default" className="bg-purple-700 mt-4 text-white w-full hover:text-black">
+              Get started
             </Button>
           </div>
-          <Input placeholder="0" className="bg-gray-700 text-white" />
-          <Button variant="default" className="bg-purple-700 mt-4">
-            Get started
-          </Button>
-        </div>
-      </Card>
-      <p className="mt-8 text-center text-white">
-        The first zero-gas DEX with no bridging. Buy and sell crypto on Ethereum and many other chains.
-      </p>
+        </Card>
+      </Link>
+      <p className="mt-8 text-center text-white">All chains. No bridging. Exclusive Ecosystem.</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-40">
         <Card className="p-6 bg-gray-800 rounded-lg shadow-lg">
@@ -115,6 +117,18 @@ export default function Home() {
         <Card className="p-6 bg-gray-800 rounded-lg shadow-lg">
           <h3 className="text-xl font-semibold text-white">Cross-stake.</h3>
           <p className="text-white">Stake any token, receive rewards in any token.</p>
+        </Card>
+        <Card className="p-6 bg-gray-800 rounded-lg shadow-lg">
+          <h3 className="text-xl font-semibold text-white">Web3 Gaming Native.</h3>
+          <p className="text-white">Experience an interconnected Web3 gaming ecosystem like never before.</p>
+        </Card>
+        <Card className="p-6 bg-gray-800 rounded-lg shadow-lg">
+          <h3 className="text-xl font-semibold text-white">Liftoff.</h3>
+          <p className="text-white">Kickstart your GenAI projects with immediate funding from the community.</p>
+        </Card>
+        <Card className="p-6 bg-gray-800 rounded-lg shadow-lg">
+          <h3 className="text-xl font-semibold text-white">Feed Your Curiosity.</h3>
+          <p className="text-white">Discover captivating new projects and gain a stake in their success.</p>
         </Card>
       </div>
     </div>

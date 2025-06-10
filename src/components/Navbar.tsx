@@ -61,7 +61,7 @@ export function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             </NavigationMenuItem>
-            <NavigationMenuItem>
+            {/* <NavigationMenuItem>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Link href="/explorer">
@@ -109,12 +109,20 @@ export function Navbar() {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </NavigationMenuItem>
+            </NavigationMenuItem> */}
 
             <NavigationMenuItem>
               <Link href="/positions">
                 <Button variant="ghost" className={navigationMenuTriggerStyle()}>
-                  Pool
+                  Pools
+                </Button>
+              </Link>
+            </NavigationMenuItem>
+
+            <NavigationMenuItem>
+              <Link href="/games">
+                <Button variant="ghost" className={navigationMenuTriggerStyle()}>
+                  Games
                 </Button>
               </Link>
             </NavigationMenuItem>
