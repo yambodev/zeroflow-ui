@@ -1,11 +1,15 @@
+'use client'
+
 import Link from 'next/link'
 import { NavigationMenu, NavigationMenuItem, navigationMenuTriggerStyle } from './ui/navigation-menu'
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from './ui/dropdown-menu'
 import { Button } from './ui/button'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog'
+import { useWallet } from '@/hooks/useWallet'
+
 import { AiOutlineSwap, AiOutlineBarChart, AiOutlineSend, AiOutlineCreditCard } from 'react-icons/ai'
 
 export function Navbar() {
+  const { address, isConnected, connectWallet, disconnectWallet } = useWallet()
   return (
     <>
       <header className="absolute top-0 left-0 p-4 flex space-x-4">
@@ -140,27 +144,25 @@ export function Navbar() {
           </NavigationMenu>
         </div>
       </header>
-      <Dialog>
-        <DialogTrigger asChild>
+      <div className="absolute top-0 right-0 m-4">
+        {isConnected ? (
           <Button
             variant="secondary"
-            className="absolute top-0 right-0 m-4 text-pink-500 hover:text-pink-400 cursor-pointer rounded-xl bg-pink-500/20 hover:bg-pink-400/20
-                      px-3 py-1 text-[10px] md:px-4 md:py-2 md:text-base"
+            onClick={() => disconnectWallet()}
+            className="text-green-400 border-green-400 hover:text-green-300 hover:border-green-300"
+          >
+            {address?.slice(0, 6)}...{address?.slice(-4)}
+          </Button>
+        ) : (
+          <Button
+            variant="secondary"
+            onClick={connectWallet}
+            className="text-pink-500 hover:text-pink-400 cursor-pointer rounded-xl bg-pink-500/20 hover:bg-pink-400/20 px-4 py-2"
           >
             Connect Wallet
           </Button>
-        </DialogTrigger>
-        <DialogContent className="bg-black border-gray-800 sm:max-w-[425px]">
-          <DialogHeader className="relative">
-            <DialogTitle className="text-white text-center">Connect Wallet</DialogTitle>
-          </DialogHeader>
-          <div className="flex flex-col items-center justify-center p-4">
-            <Button variant="outline" className="w-full cursor-pointer text-black border-gray-700 hover:bg-gray-800">
-              WalletConnect
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+        )}
+      </div>
     </>
   )
 }
